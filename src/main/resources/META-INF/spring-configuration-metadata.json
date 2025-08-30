@@ -1,0 +1,348 @@
+{
+  "groups": [
+    {
+      "name": "supsp",
+      "type": "com.supsp.springboot.core.config.CoreProperties",
+      "sourceType": "com.supsp.springboot.core.config.CoreProperties"
+    },
+    {
+      "name": "supsp.app",
+      "type": "com.supsp.springboot.core.config.CoreProperties$App",
+      "sourceType": "com.supsp.springboot.core.config.CoreProperties",
+      "sourceMethod": "getApp()"
+    },
+    {
+      "name": "supsp.encode",
+      "type": "com.supsp.springboot.core.config.CoreProperties$Encode",
+      "sourceType": "com.supsp.springboot.core.config.CoreProperties",
+      "sourceMethod": "getEncode()"
+    },
+    {
+      "name": "supsp.async",
+      "type": "com.supsp.springboot.core.config.CoreProperties$Async",
+      "sourceType": "com.supsp.springboot.core.config.CoreProperties",
+      "sourceMethod": "getAsync()"
+    },
+    {
+      "name": "supsp.async.threadPool",
+      "type": "com.supsp.springboot.core.config.CoreProperties$Async$ThreadPool",
+      "sourceType": "com.supsp.springboot.core.config.CoreProperties$Async",
+      "sourceMethod": "getThreadPool()"
+    },
+    {
+      "name": "supsp.doc",
+      "type": "com.supsp.springboot.core.config.CoreProperties$Doc",
+      "sourceType": "com.supsp.springboot.core.config.CoreProperties",
+      "sourceMethod": "getDoc()"
+    },
+    {
+      "name": "supsp.header",
+      "type": "com.supsp.springboot.core.config.CoreProperties$Header",
+      "sourceType": "com.supsp.springboot.core.config.CoreProperties",
+      "sourceMethod": "getHeader()"
+    },
+    {
+      "name": "supsp.header.token",
+      "type": "com.supsp.springboot.core.config.CoreProperties$Header$Token",
+      "sourceType": "com.supsp.springboot.core.config.CoreProperties$Header",
+      "sourceMethod": "getToken()"
+    },
+    {
+      "name": "supsp.auth",
+      "type": "com.supsp.springboot.core.config.CoreProperties$Auth",
+      "sourceType": "com.supsp.springboot.core.config.CoreProperties",
+      "sourceMethod": "getAuth()"
+    },
+    {
+      "name": "supsp.cache",
+      "type": "com.supsp.springboot.core.config.CoreProperties$Cache",
+      "sourceType": "com.supsp.springboot.core.config.CoreProperties",
+      "sourceMethod": "getCache()"
+    }
+  ],
+  "properties": [
+    {
+      "name": "supsp.enabled",
+      "type": "java.lang.Boolean",
+      "description": "Enable the Supsp starter",
+      "defaultValue": true
+    },
+    {
+      "name": "supsp.app.name",
+      "type": "java.lang.String",
+      "description": "Application name",
+      "sourceType": "com.supsp.springboot.core.config.CoreProperties$App"
+    },
+    {
+      "name": "supsp.app.version",
+      "type": "java.lang.String",
+      "description": "Application version",
+      "sourceType": "com.supsp.springboot.core.config.CoreProperties$App"
+    },
+    {
+      "name": "supsp.app.project",
+      "type": "java.lang.String",
+      "description": "Project name",
+      "sourceType": "com.supsp.springboot.core.config.CoreProperties$App"
+    },
+    {
+      "name": "supsp.app.prefix",
+      "type": "java.lang.String",
+      "description": "Application prefix",
+      "sourceType": "com.supsp.springboot.core.config.CoreProperties$App"
+    },
+    {
+      "name": "supsp.app.profile-active",
+      "type": "java.lang.String",
+      "description": "Active profile",
+      "sourceType": "com.supsp.springboot.core.config.CoreProperties$App"
+    },
+    {
+      "name": "supsp.encode.secret",
+      "type": "java.lang.String",
+      "description": "Encryption secret",
+      "sourceType": "com.supsp.springboot.core.config.CoreProperties$Encode"
+    },
+    {
+      "name": "supsp.encode.key",
+      "type": "java.lang.String",
+      "description": "Encryption key",
+      "sourceType": "com.supsp.springboot.core.config.CoreProperties$Encode"
+    },
+    {
+      "name": "supsp.encode.iv",
+      "type": "java.lang.String",
+      "description": "Initialization vector for encryption",
+      "sourceType": "com.supsp.springboot.core.config.CoreProperties$Encode"
+    },
+    {
+      "name": "supsp.id-generator",
+      "type": "java.lang.String",
+      "description": "ID generator implementation class",
+      "sourceType": "com.supsp.springboot.core.config.CoreProperties"
+    },
+    {
+      "name": "supsp.async.threadPool.corePoolSize",
+      "type": "java.lang.Integer",
+      "description": "Core pool size for async thread pool",
+      "sourceType": "com.supsp.springboot.core.config.CoreProperties$Async$ThreadPool"
+    },
+    {
+      "name": "supsp.async.threadPool.maxPoolSize",
+      "type": "java.lang.Integer",
+      "description": "Maximum pool size for async thread pool",
+      "sourceType": "com.supsp.springboot.core.config.CoreProperties$Async$ThreadPool"
+    },
+    {
+      "name": "supsp.async.threadPool.queueCapacity",
+      "type": "java.lang.Integer",
+      "description": "Queue capacity for async thread pool",
+      "sourceType": "com.supsp.springboot.core.config.CoreProperties$Async$ThreadPool"
+    },
+    {
+      "name": "supsp.async.threadPool.keepAliveSeconds",
+      "type": "java.lang.Integer",
+      "description": "Keep alive seconds for async thread pool",
+      "sourceType": "com.supsp.springboot.core.config.CoreProperties$Async$ThreadPool"
+    },
+    {
+      "name": "supsp.async.threadPool.awaitTerminationSeconds",
+      "type": "java.lang.Integer",
+      "description": "Await termination seconds for async thread pool",
+      "sourceType": "com.supsp.springboot.core.config.CoreProperties$Async$ThreadPool"
+    },
+    {
+      "name": "supsp.async.threadPool.threadNamePrefix",
+      "type": "java.lang.String",
+      "description": "Thread name prefix for async thread pool",
+      "sourceType": "com.supsp.springboot.core.config.CoreProperties$Async$ThreadPool"
+    },
+    {
+      "name": "supsp.doc.url",
+      "type": "java.lang.String",
+      "description": "Documentation URL",
+      "sourceType": "com.supsp.springboot.core.config.CoreProperties$Doc"
+    },
+    {
+      "name": "supsp.doc.license",
+      "type": "java.lang.String",
+      "description": "Documentation license",
+      "sourceType": "com.supsp.springboot.core.config.CoreProperties$Doc"
+    },
+    {
+      "name": "supsp.doc.licenseUrl",
+      "type": "java.lang.String",
+      "description": "Documentation license URL",
+      "sourceType": "com.supsp.springboot.core.config.CoreProperties$Doc"
+    },
+    {
+      "name": "supsp.auth.auth-expires",
+      "type": "java.lang.Integer",
+      "description": "Authentication expiration time in seconds",
+      "sourceType": "com.supsp.springboot.core.config.CoreProperties$Auth"
+    },
+    {
+      "name": "supsp.auth.auth-refresh-expires",
+      "type": "java.lang.Integer",
+      "description": "Authentication refresh expiration time in seconds",
+      "sourceType": "com.supsp.springboot.core.config.CoreProperties$Auth"
+    },
+    {
+      "name": "supsp.auth.auth-refresh-offset",
+      "type": "java.lang.Integer",
+      "description": "Authentication refresh offset in seconds",
+      "sourceType": "com.supsp.springboot.core.config.CoreProperties$Auth"
+    },
+    {
+      "name": "supsp.header.prefix",
+      "type": "java.lang.String",
+      "description": "Header prefix",
+      "sourceType": "com.supsp.springboot.core.config.CoreProperties$Header"
+    },
+    {
+      "name": "supsp.header.app",
+      "type": "java.lang.String",
+      "description": "Application header name",
+      "sourceType": "com.supsp.springboot.core.config.CoreProperties$Header"
+    },
+    {
+      "name": "supsp.header.app_code",
+      "type": "java.lang.String",
+      "description": "Application code header name",
+      "sourceType": "com.supsp.springboot.core.config.CoreProperties$Header"
+    },
+    {
+      "name": "supsp.header.channel",
+      "type": "java.lang.String",
+      "description": "Channel header name",
+      "sourceType": "com.supsp.springboot.core.config.CoreProperties$Header"
+    },
+    {
+      "name": "supsp.header.platform",
+      "type": "java.lang.String",
+      "description": "Platform header name",
+      "sourceType": "com.supsp.springboot.core.config.CoreProperties$Header"
+    },
+    {
+      "name": "supsp.header.device",
+      "type": "java.lang.String",
+      "description": "Device header name",
+      "sourceType": "com.supsp.springboot.core.config.CoreProperties$Header"
+    },
+    {
+      "name": "supsp.header.device_sn",
+      "type": "java.lang.String",
+      "description": "Device serial number header name",
+      "sourceType": "com.supsp.springboot.core.config.CoreProperties$Header"
+    },
+    {
+      "name": "supsp.header.force",
+      "type": "java.lang.String",
+      "description": "Force header name",
+      "sourceType": "com.supsp.springboot.core.config.CoreProperties$Header"
+    },
+    {
+      "name": "supsp.header.operator_id",
+      "type": "java.lang.String",
+      "description": "Operator ID header name",
+      "sourceType": "com.supsp.springboot.core.config.CoreProperties$Header"
+    },
+    {
+      "name": "supsp.header.cashier_id",
+      "type": "java.lang.String",
+      "description": "Cashier ID header name",
+      "sourceType": "com.supsp.springboot.core.config.CoreProperties$Header"
+    },
+    {
+      "name": "supsp.header.version",
+      "type": "java.lang.String",
+      "description": "Version header name",
+      "sourceType": "com.supsp.springboot.core.config.CoreProperties$Header"
+    },
+    {
+      "name": "supsp.header.no-cache",
+      "type": "java.lang.String",
+      "description": "No cache header name",
+      "sourceType": "com.supsp.springboot.core.config.CoreProperties$Header"
+    },
+    {
+      "name": "supsp.header.user-type",
+      "type": "java.lang.String",
+      "description": "User type header name",
+      "sourceType": "com.supsp.springboot.core.config.CoreProperties$Header"
+    },
+    {
+      "name": "supsp.header.token.admin.auth",
+      "type": "java.lang.Boolean",
+      "description": "Admin auth token header name",
+      "sourceType": "com.supsp.springboot.core.config.CoreProperties$Header"
+    },
+    {
+      "name": "supsp.header.token.tenant.auth",
+      "type": "java.lang.Boolean",
+      "description": "Tenant auth token header name",
+      "sourceType": "com.supsp.springboot.core.config.CoreProperties$Header"
+    },
+    {
+      "name": "supsp.header.token.merchant.auth",
+      "type": "java.lang.Boolean",
+      "description": "Merchant auth token header name",
+      "sourceType": "com.supsp.springboot.core.config.CoreProperties$Header"
+    },
+    {
+      "name": "supsp.header.token.consumer.auth",
+      "type": "java.lang.Boolean",
+      "description": "Consumer auth token header name",
+      "sourceType": "com.supsp.springboot.core.config.CoreProperties$Header"
+    },
+    {
+      "name": "supsp.header.token.api.auth",
+      "type": "java.lang.Boolean",
+      "description": "API auth token header name",
+      "sourceType": "com.supsp.springboot.core.config.CoreProperties$Header"
+    },
+    {
+      "name": "supsp.cache.enable",
+      "type": "java.lang.Boolean",
+      "description": "Enable cache",
+      "sourceType": "com.supsp.springboot.core.config.CoreProperties$Cache"
+    },
+    {
+      "name": "supsp.cache.name",
+      "type": "java.lang.String",
+      "description": "Cache name",
+      "sourceType": "com.supsp.springboot.core.config.CoreProperties$Cache"
+    },
+    {
+      "name": "supsp.cache.version",
+      "type": "java.lang.String",
+      "description": "Cache version",
+      "sourceType": "com.supsp.springboot.core.config.CoreProperties$Cache"
+    },
+    {
+      "name": "supsp.cache.initial_capacity",
+      "type": "java.lang.Integer",
+      "description": "Cache initial capacity",
+      "sourceType": "com.supsp.springboot.core.config.CoreProperties$Cache"
+    },
+    {
+      "name": "supsp.cache.maximum_size",
+      "type": "java.lang.Integer",
+      "description": "Cache maximum size",
+      "sourceType": "com.supsp.springboot.core.config.CoreProperties$Cache"
+    },
+    {
+      "name": "supsp.cache.table-expire",
+      "type": "java.time.Duration",
+      "description": "Table cache expiration time",
+      "sourceType": "com.supsp.springboot.core.config.CoreProperties$Cache"
+    },
+    {
+      "name": "supsp.cache.expire",
+      "type": "java.time.Duration",
+      "description": "Default cache expiration time",
+      "sourceType": "com.supsp.springboot.core.config.CoreProperties$Cache"
+    }
+  ],
+  "hints": []
+}
