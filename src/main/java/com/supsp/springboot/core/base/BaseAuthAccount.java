@@ -9,6 +9,10 @@ import com.supsp.springboot.core.enums.AuthMemberType;
 import com.supsp.springboot.core.enums.OrgAuthority;
 import com.supsp.springboot.core.enums.SensitiveType;
 import com.supsp.springboot.core.interfaces.IAuthAccount;
+import com.supsp.springboot.core.vo.auth.AccountOrg;
+import com.supsp.springboot.core.vo.auth.AccountPost;
+import com.supsp.springboot.core.vo.auth.AccountShop;
+import com.supsp.springboot.core.vo.auth.AccountStore;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -51,6 +55,9 @@ public abstract class BaseAuthAccount implements IAuthAccount {
 
     @Schema(title = "用户ID")
     protected Long id;
+
+    @Schema(title = "登录用户类型")
+    protected AuthMemberType memberType;
 
     @Schema(title = "登录账号类型")
     protected AccountType type;
@@ -247,6 +254,8 @@ public abstract class BaseAuthAccount implements IAuthAccount {
     public void setTenant(Boolean tenant) {
         this.tenant = tenant;
     }
+
+
 
     @Override
     public Long getOrgChildId() {

@@ -18,15 +18,6 @@ import com.supsp.springboot.core.vo.IpRegionInfo;
 import com.supsp.springboot.core.vo.Operator;
 import com.supsp.springboot.core.vo.Scope;
 import com.supsp.springboot.core.vo.auth.*;
-import com.supsp.springboot.core.vo.auth.admin.AdminAccountOrg;
-import com.supsp.springboot.core.vo.auth.api.ApiAccountOrg;
-import com.supsp.springboot.core.vo.auth.api.ApiAccountStore;
-import com.supsp.springboot.core.vo.auth.consumer.ConsumerAccountOrg;
-import com.supsp.springboot.core.vo.auth.consumer.ConsumerAccountStore;
-import com.supsp.springboot.core.vo.auth.merchant.MerchantAccountOrg;
-import com.supsp.springboot.core.vo.auth.merchant.MerchantAccountStore;
-import com.supsp.springboot.core.vo.auth.tenant.TenantAccountOrg;
-import com.supsp.springboot.core.vo.auth.tenant.TenantAccountStore;
 import jakarta.annotation.Resource;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.ObjectUtils;
@@ -172,36 +163,37 @@ public class AuthCommon {
 
     // 通过 header 获取
     public static AuthMemberType currentAuthMemberType() {
-        if (hasAdminHeader()) {
-            AdminAuthAccount adminAuthAccount = adminAuthAccount();
-            if (ObjectUtils.isNotEmpty(adminAuthAccount)) {
-                return AuthMemberType.admin;
-            }
-        }
-        if (hasTenantHeader()) {
-            TenantAuthAccount tenantAuthAccount = tenantAuthAccount();
-            if (ObjectUtils.isNotEmpty(tenantAuthAccount)) {
-                return AuthMemberType.tenant;
-            }
-        }
-        if (hasMerchantHeader()) {
-            MerchantAuthAccount merchantAuthAccount = merchantAuthAccount();
-            if (ObjectUtils.isNotEmpty(merchantAuthAccount)) {
-                return AuthMemberType.merchant;
-            }
-        }
-        if (hasConsumerHeader()) {
-            ConsumerAuthAccount consumerAuthAccount = consumerAuthAccount();
-            if (ObjectUtils.isNotEmpty(consumerAuthAccount)) {
-                return AuthMemberType.consumer;
-            }
-        }
-        if (hasApiHeader()) {
-            ApiAuthAccount apiAuthAccount = apiAuthAccount();
-            if (ObjectUtils.isNotEmpty(apiAuthAccount)) {
-                return AuthMemberType.api;
-            }
-        }
+        // todo
+//        if (hasAdminHeader()) {
+//            AdminAuthAccount adminAuthAccount = adminAuthAccount();
+//            if (ObjectUtils.isNotEmpty(adminAuthAccount)) {
+//                return AuthMemberType.admin;
+//            }
+//        }
+//        if (hasTenantHeader()) {
+//            TenantAuthAccount tenantAuthAccount = tenantAuthAccount();
+//            if (ObjectUtils.isNotEmpty(tenantAuthAccount)) {
+//                return AuthMemberType.tenant;
+//            }
+//        }
+//        if (hasMerchantHeader()) {
+//            MerchantAuthAccount merchantAuthAccount = merchantAuthAccount();
+//            if (ObjectUtils.isNotEmpty(merchantAuthAccount)) {
+//                return AuthMemberType.merchant;
+//            }
+//        }
+//        if (hasConsumerHeader()) {
+//            ConsumerAuthAccount consumerAuthAccount = consumerAuthAccount();
+//            if (ObjectUtils.isNotEmpty(consumerAuthAccount)) {
+//                return AuthMemberType.consumer;
+//            }
+//        }
+//        if (hasApiHeader()) {
+//            ApiAuthAccount apiAuthAccount = apiAuthAccount();
+//            if (ObjectUtils.isNotEmpty(apiAuthAccount)) {
+//                return AuthMemberType.api;
+//            }
+//        }
         return AuthMemberType.none;
     }
 
@@ -257,91 +249,92 @@ public class AuthCommon {
     }
 
     //
-    public static AdminAuthAccount adminAuthAccount(IAuthAccount account) {
-        if (
-                ObjectUtils.isEmpty(account)
-                        || !account.getMemberType().equals(AuthMemberType.admin)
-        ) {
-            return null;
-        }
-        try {
-            return (AdminAuthAccount) account;
-        } catch (Exception e) {
-            //
-        }
-        return null;
-    }
-
-    public static TenantAuthAccount tenantAuthAccount(IAuthAccount account) {
-        if (
-                ObjectUtils.isEmpty(account)
-                        || !account.getMemberType().equals(AuthMemberType.tenant)
-        ) {
-            return null;
-        }
-        try {
-            return (TenantAuthAccount) account;
-        } catch (Exception e) {
-            //
-        }
-        return null;
-    }
-
-    public static MerchantAuthAccount merchantAuthAccount(IAuthAccount account) {
-        if (
-                ObjectUtils.isEmpty(account)
-                        || !account.getMemberType().equals(AuthMemberType.merchant)
-        ) {
-            return null;
-        }
-        try {
-            return (MerchantAuthAccount) account;
-        } catch (Exception e) {
-            //
-        }
-        return null;
-    }
-
-    public static ConsumerAuthAccount consumerAuthAccount(IAuthAccount account) {
-        if (
-                ObjectUtils.isEmpty(account)
-                        || !account.getMemberType().equals(AuthMemberType.consumer)
-        ) {
-            return null;
-        }
-        try {
-            return (ConsumerAuthAccount) account;
-        } catch (Exception e) {
-            //
-        }
-        return null;
-    }
-
-    public static ApiAuthAccount apiAuthAccount(IAuthAccount account) {
-        if (
-                ObjectUtils.isEmpty(account)
-                        || !account.getMemberType().equals(AuthMemberType.api)
-        ) {
-            return null;
-        }
-        try {
-            return (ApiAuthAccount) account;
-        } catch (Exception e) {
-            //
-        }
-        return null;
-    }
+    // todo
+//    public static AdminAuthAccount adminAuthAccount(IAuthAccount account) {
+//        if (
+//                ObjectUtils.isEmpty(account)
+//                        || !account.getMemberType().equals(AuthMemberType.admin)
+//        ) {
+//            return null;
+//        }
+//        try {
+//            return (AdminAuthAccount) account;
+//        } catch (Exception e) {
+//            //
+//        }
+//        return null;
+//    }
+//
+//    public static TenantAuthAccount tenantAuthAccount(IAuthAccount account) {
+//        if (
+//                ObjectUtils.isEmpty(account)
+//                        || !account.getMemberType().equals(AuthMemberType.tenant)
+//        ) {
+//            return null;
+//        }
+//        try {
+//            return (TenantAuthAccount) account;
+//        } catch (Exception e) {
+//            //
+//        }
+//        return null;
+//    }
+//
+//    public static MerchantAuthAccount merchantAuthAccount(IAuthAccount account) {
+//        if (
+//                ObjectUtils.isEmpty(account)
+//                        || !account.getMemberType().equals(AuthMemberType.merchant)
+//        ) {
+//            return null;
+//        }
+//        try {
+//            return (MerchantAuthAccount) account;
+//        } catch (Exception e) {
+//            //
+//        }
+//        return null;
+//    }
+//
+//    public static ConsumerAuthAccount consumerAuthAccount(IAuthAccount account) {
+//        if (
+//                ObjectUtils.isEmpty(account)
+//                        || !account.getMemberType().equals(AuthMemberType.consumer)
+//        ) {
+//            return null;
+//        }
+//        try {
+//            return (ConsumerAuthAccount) account;
+//        } catch (Exception e) {
+//            //
+//        }
+//        return null;
+//    }
+//
+//    public static ApiAuthAccount apiAuthAccount(IAuthAccount account) {
+//        if (
+//                ObjectUtils.isEmpty(account)
+//                        || !account.getMemberType().equals(AuthMemberType.api)
+//        ) {
+//            return null;
+//        }
+//        try {
+//            return (ApiAuthAccount) account;
+//        } catch (Exception e) {
+//            //
+//        }
+//        return null;
+//    }
 
     //
     public static IAuthAccount getAdminAuthAccount() {
-        if (isMq()){
+        if (isMq()) {
             return ConsumerData.get(DataKeys.AUTH_ACCOUNT_ADMIN);
         }
         return GlobalData.get(DataKeys.AUTH_ACCOUNT_ADMIN);
     }
 
     public static IAuthAccount getTenantAuthAccount() {
-        if (isMq()){
+        if (isMq()) {
             return ConsumerData.get(DataKeys.AUTH_ACCOUNT_TENANT);
         }
         return GlobalData.get(DataKeys.AUTH_ACCOUNT_TENANT);
@@ -355,14 +348,14 @@ public class AuthCommon {
     }
 
     public static IAuthAccount getConsumerAuthAccount() {
-        if (isMq()){
+        if (isMq()) {
             return ConsumerData.get(DataKeys.AUTH_ACCOUNT_CONSUMER);
         }
         return GlobalData.get(DataKeys.AUTH_ACCOUNT_CONSUMER);
     }
 
     public static IAuthAccount getApiAuthAccount() {
-        if (isMq()){
+        if (isMq()) {
             return ConsumerData.get(DataKeys.AUTH_ACCOUNT_API);
         }
         return GlobalData.get(DataKeys.AUTH_ACCOUNT_API);
@@ -390,46 +383,46 @@ public class AuthCommon {
         return null;
     }
 
-    //
-    public static AdminAuthAccount adminAuthAccount() {
-        IAuthAccount account = getAdminAuthAccount();
-        if (ObjectUtils.isEmpty(account)) {
-            return null;
-        }
-        return adminAuthAccount(account);
-    }
-
-    public static TenantAuthAccount tenantAuthAccount() {
-        IAuthAccount account = getTenantAuthAccount();
-        if (ObjectUtils.isEmpty(account)) {
-            return null;
-        }
-        return tenantAuthAccount(account);
-    }
-
-    public static MerchantAuthAccount merchantAuthAccount() {
-        IAuthAccount account = getMerchantAuthAccount();
-        if (ObjectUtils.isEmpty(account)) {
-            return null;
-        }
-        return merchantAuthAccount(account);
-    }
-
-    public static ConsumerAuthAccount consumerAuthAccount() {
-        IAuthAccount account = getConsumerAuthAccount();
-        if (ObjectUtils.isEmpty(account)) {
-            return null;
-        }
-        return consumerAuthAccount(account);
-    }
-
-    public static ApiAuthAccount apiAuthAccount() {
-        IAuthAccount account = getApiAuthAccount();
-        if (ObjectUtils.isEmpty(account)) {
-            return null;
-        }
-        return apiAuthAccount(account);
-    }
+    // todo
+//    public static AdminAuthAccount adminAuthAccount() {
+//        IAuthAccount account = getAdminAuthAccount();
+//        if (ObjectUtils.isEmpty(account)) {
+//            return null;
+//        }
+//        return adminAuthAccount(account);
+//    }
+//
+//    public static TenantAuthAccount tenantAuthAccount() {
+//        IAuthAccount account = getTenantAuthAccount();
+//        if (ObjectUtils.isEmpty(account)) {
+//            return null;
+//        }
+//        return tenantAuthAccount(account);
+//    }
+//
+//    public static MerchantAuthAccount merchantAuthAccount() {
+//        IAuthAccount account = getMerchantAuthAccount();
+//        if (ObjectUtils.isEmpty(account)) {
+//            return null;
+//        }
+//        return merchantAuthAccount(account);
+//    }
+//
+//    public static ConsumerAuthAccount consumerAuthAccount() {
+//        IAuthAccount account = getConsumerAuthAccount();
+//        if (ObjectUtils.isEmpty(account)) {
+//            return null;
+//        }
+//        return consumerAuthAccount(account);
+//    }
+//
+//    public static ApiAuthAccount apiAuthAccount() {
+//        IAuthAccount account = getApiAuthAccount();
+//        if (ObjectUtils.isEmpty(account)) {
+//            return null;
+//        }
+//        return apiAuthAccount(account);
+//    }
 
     public static <T extends BaseAuthAccount> T getAccount() {
         try {
@@ -497,437 +490,441 @@ public class AuthCommon {
     }
 
 
-    public static Operator getAdminOperator(IAuthAccount account) {
-        AdminAuthAccount authAccount = adminAuthAccount(account);
-        if (ObjectUtils.isEmpty(authAccount)) {
-            return null;
-        }
-        Operator operator = Operator.builder()
-                .id(account.getId())
-                .orgId(account.getOrgId())
-                .orgAuthority(account.getOrgAuthority())
-                .memberType(account.getMemberType())
-                .account(account.getAccount())
-                .type(account.getType())
-                .name(account.getName())
-                .phone(account.getPhone())
-                .avatar(account.getAvatar())
-                .area(account.getArea())
-                .province(account.getProvince())
-                .city(account.getCity())
-                .district(account.getDistrict())
-                .street(account.getStreet())
-                .community(account.getCommunity())
-                .requestIp(getRequestIp())
-                .build();
-        operator.setIpInfo(IpUtils.ipInfo(operator.getRequestIp()));
-        try {
-            AdminAccountOrg org = (AdminAccountOrg) account.getOrg();
-            if (ObjectUtils.isNotEmpty(org)) {
-                operator.setOrgType(org.getOrgType())
-                        .setParentOrgId(org.getParentId())
-                        .setTopOrgId(org.getTopId());
-            }
-        } catch (Exception e) {
-            // log
-        }
-        return operator;
-    }
-
-    public static Operator getTenantOperator(IAuthAccount account) {
-        TenantAuthAccount authAccount = tenantAuthAccount(account);
-        if (ObjectUtils.isEmpty(authAccount)) {
-            return null;
-        }
-        Operator operator = Operator.builder()
-                .id(account.getId())
-                .orgId(account.getOrgId())
-                .orgAuthority(account.getOrgAuthority())
-                .memberType(account.getMemberType())
-                .account(account.getAccount())
-                .type(account.getType())
-                .name(account.getName())
-                .phone(account.getPhone())
-                .avatar(account.getAvatar())
-                .area(account.getArea())
-                .province(account.getProvince())
-                .city(account.getCity())
-                .district(account.getDistrict())
-                .street(account.getStreet())
-                .community(account.getCommunity())
-                .requestIp(AuthCommon.getRequestIp())
-                .build();
-        operator.setIpInfo(IpUtils.ipInfo(operator.getRequestIp()));
-
-        try {
-            TenantAccountOrg org = (TenantAccountOrg) account.getOrg();
-            if (ObjectUtils.isNotEmpty(org)) {
-                operator.setOrgType(org.getOrgType())
-                        .setParentOrgId(org.getParentId())
-                        .setTopOrgId(org.getTopId());
-            }
-        } catch (Exception e) {
-            // log
-        }
-
-        try {
-            TenantAccountStore store = (TenantAccountStore) account.getStore();
-            if (ObjectUtils.isNotEmpty(store)) {
-                operator.setStoreType(store.getStoreType())
-                        .setParentStoreId(store.getParentId())
-                        .setTopStoreId(store.getTopId());
-            }
-        } catch (Exception e) {
-            // log
-        }
-
-        operator.setShopId(account.getShopId());
-        return operator;
-    }
-
-    public static Operator getmerchantOperator(IAuthAccount account) {
-        MerchantAuthAccount authAccount = merchantAuthAccount(account);
-        if (ObjectUtils.isEmpty(authAccount)) {
-            return null;
-        }
-        Operator operator = Operator.builder()
-                .id(account.getId())
-                .orgId(account.getOrgId())
-                .orgAuthority(account.getOrgAuthority())
-                .memberType(account.getMemberType())
-                .account(account.getAccount())
-                .type(account.getType())
-                .name(account.getName())
-                .phone(account.getPhone())
-                .avatar(account.getAvatar())
-                .area(account.getArea())
-                .province(account.getProvince())
-                .city(account.getCity())
-                .district(account.getDistrict())
-                .street(account.getStreet())
-                .community(account.getCommunity())
-                .requestIp(AuthCommon.getRequestIp())
-                .build();
-        operator.setIpInfo(IpUtils.ipInfo(operator.getRequestIp()));
-
-        try {
-            MerchantAccountOrg org = (MerchantAccountOrg) account.getOrg();
-            if (ObjectUtils.isNotEmpty(org)) {
-                operator.setOrgType(org.getOrgType())
-                        .setParentOrgId(org.getParentId())
-                        .setTopOrgId(org.getTopId());
-            }
-        } catch (Exception e) {
-            // log
-        }
-
-        try {
-            MerchantAccountStore store = (MerchantAccountStore) account.getStore();
-            if (ObjectUtils.isNotEmpty(store)) {
-                operator.setStoreType(store.getStoreType())
-                        .setParentStoreId(store.getParentId())
-                        .setTopStoreId(store.getTopId());
-            }
-        } catch (Exception e) {
-            // log
-        }
-
-        operator.setShopId(account.getShopId());
-        return operator;
-    }
-
-    public static Operator getConsumerOperator(IAuthAccount account) {
-        ConsumerAuthAccount authAccount = consumerAuthAccount(account);
-        if (ObjectUtils.isEmpty(authAccount)) {
-            return null;
-        }
-        Operator operator = Operator.builder()
-                .id(account.getId())
-                .orgId(account.getOrgId())
-                .orgAuthority(account.getOrgAuthority())
-                .memberType(account.getMemberType())
-                .account(account.getAccount())
-                .type(account.getType())
-                .name(account.getName())
-                .phone(account.getPhone())
-                .avatar(account.getAvatar())
-                .area(account.getArea())
-                .province(account.getProvince())
-                .city(account.getCity())
-                .district(account.getDistrict())
-                .street(account.getStreet())
-                .community(account.getCommunity())
-                .requestIp(AuthCommon.getRequestIp())
-                .build();
-        operator.setIpInfo(IpUtils.ipInfo(operator.getRequestIp()));
-
-        try {
-            ConsumerAccountOrg org = (ConsumerAccountOrg) account.getOrg();
-            if (ObjectUtils.isNotEmpty(org)) {
-                operator.setOrgType(org.getOrgType())
-                        .setParentOrgId(org.getParentId())
-                        .setTopOrgId(org.getTopId());
-            }
-        } catch (Exception e) {
-            // log
-        }
-
-        try {
-            ConsumerAccountStore store = (ConsumerAccountStore) account.getStore();
-            if (ObjectUtils.isNotEmpty(store)) {
-                operator.setStoreType(store.getStoreType())
-                        .setParentStoreId(store.getParentId())
-                        .setTopStoreId(store.getTopId());
-            }
-        } catch (Exception e) {
-            // log
-        }
-
-        operator.setShopId(account.getShopId());
-        return operator;
-    }
-
-    public static Operator getApiOperator(IAuthAccount account) {
-        ApiAuthAccount authAccount = apiAuthAccount(account);
-        if (ObjectUtils.isEmpty(authAccount)) {
-            return null;
-        }
-        Operator operator = Operator.builder()
-                .id(account.getId())
-                .orgId(account.getOrgId())
-                .orgAuthority(account.getOrgAuthority())
-                .memberType(account.getMemberType())
-                .account(account.getAccount())
-                .type(account.getType())
-                .name(account.getName())
-                .phone(account.getPhone())
-                .avatar(account.getAvatar())
-                .area(account.getArea())
-                .province(account.getProvince())
-                .city(account.getCity())
-                .district(account.getDistrict())
-                .street(account.getStreet())
-                .community(account.getCommunity())
-                .requestIp(AuthCommon.getRequestIp())
-                .build();
-        operator.setIpInfo(IpUtils.ipInfo(operator.getRequestIp()));
-
-        try {
-            ApiAccountOrg org = (ApiAccountOrg) account.getOrg();
-            if (ObjectUtils.isNotEmpty(org)) {
-                operator.setOrgType(org.getOrgType())
-                        .setParentOrgId(org.getParentId())
-                        .setTopOrgId(org.getTopId());
-            }
-        } catch (Exception e) {
-            // log
-        }
-
-        try {
-            ApiAccountStore store = (ApiAccountStore) account.getStore();
-            if (ObjectUtils.isNotEmpty(store)) {
-                operator.setStoreType(store.getStoreType())
-                        .setParentStoreId(store.getParentId())
-                        .setTopStoreId(store.getTopId());
-            }
-        } catch (Exception e) {
-            // log
-        }
-
-        operator.setShopId(account.getShopId());
-        return operator;
-    }
+    // todo
+//    public static Operator getAdminOperator(IAuthAccount account) {
+//        AdminAuthAccount authAccount = adminAuthAccount(account);
+//        if (ObjectUtils.isEmpty(authAccount)) {
+//            return null;
+//        }
+//        Operator operator = Operator.builder()
+//                .id(account.getId())
+//                .orgId(account.getOrgId())
+//                .orgAuthority(account.getOrgAuthority())
+//                .memberType(account.getMemberType())
+//                .account(account.getAccount())
+//                .type(account.getType())
+//                .name(account.getName())
+//                .phone(account.getPhone())
+//                .avatar(account.getAvatar())
+//                .area(account.getArea())
+//                .province(account.getProvince())
+//                .city(account.getCity())
+//                .district(account.getDistrict())
+//                .street(account.getStreet())
+//                .community(account.getCommunity())
+//                .requestIp(getRequestIp())
+//                .build();
+//        operator.setIpInfo(IpUtils.ipInfo(operator.getRequestIp()));
+//        try {
+//            AdminAccountOrg org = (AdminAccountOrg) account.getOrg();
+//            if (ObjectUtils.isNotEmpty(org)) {
+//                operator.setOrgType(org.getOrgType())
+//                        .setParentOrgId(org.getParentId())
+//                        .setTopOrgId(org.getTopId());
+//            }
+//        } catch (Exception e) {
+//            // log
+//        }
+//        return operator;
+//    }
+//
+//    public static Operator getTenantOperator(IAuthAccount account) {
+//        TenantAuthAccount authAccount = tenantAuthAccount(account);
+//        if (ObjectUtils.isEmpty(authAccount)) {
+//            return null;
+//        }
+//        Operator operator = Operator.builder()
+//                .id(account.getId())
+//                .orgId(account.getOrgId())
+//                .orgAuthority(account.getOrgAuthority())
+//                .memberType(account.getMemberType())
+//                .account(account.getAccount())
+//                .type(account.getType())
+//                .name(account.getName())
+//                .phone(account.getPhone())
+//                .avatar(account.getAvatar())
+//                .area(account.getArea())
+//                .province(account.getProvince())
+//                .city(account.getCity())
+//                .district(account.getDistrict())
+//                .street(account.getStreet())
+//                .community(account.getCommunity())
+//                .requestIp(AuthCommon.getRequestIp())
+//                .build();
+//        operator.setIpInfo(IpUtils.ipInfo(operator.getRequestIp()));
+//
+//        try {
+//            TenantAccountOrg org = (TenantAccountOrg) account.getOrg();
+//            if (ObjectUtils.isNotEmpty(org)) {
+//                operator.setOrgType(org.getOrgType())
+//                        .setParentOrgId(org.getParentId())
+//                        .setTopOrgId(org.getTopId());
+//            }
+//        } catch (Exception e) {
+//            // log
+//        }
+//
+//        try {
+//            TenantAccountStore store = (TenantAccountStore) account.getStore();
+//            if (ObjectUtils.isNotEmpty(store)) {
+//                operator.setStoreType(store.getStoreType())
+//                        .setParentStoreId(store.getParentId())
+//                        .setTopStoreId(store.getTopId());
+//            }
+//        } catch (Exception e) {
+//            // log
+//        }
+//
+//        operator.setShopId(account.getShopId());
+//        return operator;
+//    }
+//
+//    public static Operator getmerchantOperator(IAuthAccount account) {
+//        MerchantAuthAccount authAccount = merchantAuthAccount(account);
+//        if (ObjectUtils.isEmpty(authAccount)) {
+//            return null;
+//        }
+//        Operator operator = Operator.builder()
+//                .id(account.getId())
+//                .orgId(account.getOrgId())
+//                .orgAuthority(account.getOrgAuthority())
+//                .memberType(account.getMemberType())
+//                .account(account.getAccount())
+//                .type(account.getType())
+//                .name(account.getName())
+//                .phone(account.getPhone())
+//                .avatar(account.getAvatar())
+//                .area(account.getArea())
+//                .province(account.getProvince())
+//                .city(account.getCity())
+//                .district(account.getDistrict())
+//                .street(account.getStreet())
+//                .community(account.getCommunity())
+//                .requestIp(AuthCommon.getRequestIp())
+//                .build();
+//        operator.setIpInfo(IpUtils.ipInfo(operator.getRequestIp()));
+//
+//        try {
+//            MerchantAccountOrg org = (MerchantAccountOrg) account.getOrg();
+//            if (ObjectUtils.isNotEmpty(org)) {
+//                operator.setOrgType(org.getOrgType())
+//                        .setParentOrgId(org.getParentId())
+//                        .setTopOrgId(org.getTopId());
+//            }
+//        } catch (Exception e) {
+//            // log
+//        }
+//
+//        try {
+//            MerchantAccountStore store = (MerchantAccountStore) account.getStore();
+//            if (ObjectUtils.isNotEmpty(store)) {
+//                operator.setStoreType(store.getStoreType())
+//                        .setParentStoreId(store.getParentId())
+//                        .setTopStoreId(store.getTopId());
+//            }
+//        } catch (Exception e) {
+//            // log
+//        }
+//
+//        operator.setShopId(account.getShopId());
+//        return operator;
+//    }
+//
+//    public static Operator getConsumerOperator(IAuthAccount account) {
+//        ConsumerAuthAccount authAccount = consumerAuthAccount(account);
+//        if (ObjectUtils.isEmpty(authAccount)) {
+//            return null;
+//        }
+//        Operator operator = Operator.builder()
+//                .id(account.getId())
+//                .orgId(account.getOrgId())
+//                .orgAuthority(account.getOrgAuthority())
+//                .memberType(account.getMemberType())
+//                .account(account.getAccount())
+//                .type(account.getType())
+//                .name(account.getName())
+//                .phone(account.getPhone())
+//                .avatar(account.getAvatar())
+//                .area(account.getArea())
+//                .province(account.getProvince())
+//                .city(account.getCity())
+//                .district(account.getDistrict())
+//                .street(account.getStreet())
+//                .community(account.getCommunity())
+//                .requestIp(AuthCommon.getRequestIp())
+//                .build();
+//        operator.setIpInfo(IpUtils.ipInfo(operator.getRequestIp()));
+//
+//        try {
+//            ConsumerAccountOrg org = (ConsumerAccountOrg) account.getOrg();
+//            if (ObjectUtils.isNotEmpty(org)) {
+//                operator.setOrgType(org.getOrgType())
+//                        .setParentOrgId(org.getParentId())
+//                        .setTopOrgId(org.getTopId());
+//            }
+//        } catch (Exception e) {
+//            // log
+//        }
+//
+//        try {
+//            ConsumerAccountStore store = (ConsumerAccountStore) account.getStore();
+//            if (ObjectUtils.isNotEmpty(store)) {
+//                operator.setStoreType(store.getStoreType())
+//                        .setParentStoreId(store.getParentId())
+//                        .setTopStoreId(store.getTopId());
+//            }
+//        } catch (Exception e) {
+//            // log
+//        }
+//
+//        operator.setShopId(account.getShopId());
+//        return operator;
+//    }
+//
+//    public static Operator getApiOperator(IAuthAccount account) {
+//        ApiAuthAccount authAccount = apiAuthAccount(account);
+//        if (ObjectUtils.isEmpty(authAccount)) {
+//            return null;
+//        }
+//        Operator operator = Operator.builder()
+//                .id(account.getId())
+//                .orgId(account.getOrgId())
+//                .orgAuthority(account.getOrgAuthority())
+//                .memberType(account.getMemberType())
+//                .account(account.getAccount())
+//                .type(account.getType())
+//                .name(account.getName())
+//                .phone(account.getPhone())
+//                .avatar(account.getAvatar())
+//                .area(account.getArea())
+//                .province(account.getProvince())
+//                .city(account.getCity())
+//                .district(account.getDistrict())
+//                .street(account.getStreet())
+//                .community(account.getCommunity())
+//                .requestIp(AuthCommon.getRequestIp())
+//                .build();
+//        operator.setIpInfo(IpUtils.ipInfo(operator.getRequestIp()));
+//
+//        try {
+//            ApiAccountOrg org = (ApiAccountOrg) account.getOrg();
+//            if (ObjectUtils.isNotEmpty(org)) {
+//                operator.setOrgType(org.getOrgType())
+//                        .setParentOrgId(org.getParentId())
+//                        .setTopOrgId(org.getTopId());
+//            }
+//        } catch (Exception e) {
+//            // log
+//        }
+//
+//        try {
+//            ApiAccountStore store = (ApiAccountStore) account.getStore();
+//            if (ObjectUtils.isNotEmpty(store)) {
+//                operator.setStoreType(store.getStoreType())
+//                        .setParentStoreId(store.getParentId())
+//                        .setTopStoreId(store.getTopId());
+//            }
+//        } catch (Exception e) {
+//            // log
+//        }
+//
+//        operator.setShopId(account.getShopId());
+//        return operator;
+//    }
 
     public static Operator getAuthOperator() {
         IAuthAccount account = getAuthAccount();
         if (ObjectUtils.isEmpty(account)) {
             return null;
         }
-        switch (account.getMemberType()) {
-            case admin -> {
-                return getAdminOperator(account);
-            }
-
-            case tenant -> {
-                return getTenantOperator(account);
-            }
-
-            case merchant -> {
-                return getmerchantOperator(account);
-            }
-
-            case consumer -> {
-                return getConsumerOperator(account);
-            }
-
-            case api -> {
-                return getApiOperator(account);
-            }
-        }
+        // todo
+//        switch (account.getMemberType()) {
+//            case admin -> {
+//                return getAdminOperator(account);
+//            }
+//
+//            case tenant -> {
+//                return getTenantOperator(account);
+//            }
+//
+//            case merchant -> {
+//                return getmerchantOperator(account);
+//            }
+//
+//            case consumer -> {
+//                return getConsumerOperator(account);
+//            }
+//
+//            case api -> {
+//                return getApiOperator(account);
+//            }
+//        }
         return null;
     }
 
-    public static Scope getAdminScope(IAuthAccount account) {
-        AdminAuthAccount authAccount = adminAuthAccount(account);
-        if (ObjectUtils.isEmpty(authAccount)) {
-            return null;
-        }
-        return Scope.builder()
-                .memberType(authAccount.getMemberType())
-                .orgAuthority(authAccount.getOrgAuthority())
-                .province(authAccount.getProvince())
-                .city(authAccount.getCity())
-                .district(authAccount.getDistrict())
-                .street(authAccount.getStreet())
-                .community(authAccount.getCommunity())
-                .build();
-    }
-
-    public static Scope getTenantScope(IAuthAccount account) {
-        TenantAuthAccount authAccount = tenantAuthAccount(account);
-        if (ObjectUtils.isEmpty(authAccount)) {
-            return null;
-        }
-
-        Scope scope = Scope.builder()
-                .memberType(authAccount.getMemberType())
-                .province(authAccount.getProvince())
-                .city(authAccount.getCity())
-                .district(authAccount.getDistrict())
-                .street(authAccount.getStreet())
-                .community(authAccount.getCommunity())
-                .build();
-
-        if (authAccount.isLegalPerson()) {
-            scope.setOrgAuthority(OrgAuthority.org);
-            scope.setOrgId(authAccount.getOrgId());
-        } else if (authAccount.isManagerPerson()) {
-            scope.setOrgAuthority(OrgAuthority.store);
-            scope.setStoreId(authAccount.getStoreId());
-        } else {
-            scope.setOrgAuthority(OrgAuthority.none);
-            scope.setStoreId(authAccount.getStoreId());
-        }
-        scope.setShopId(account.getShopId());
-        return scope;
-    }
-
-    public static Scope getmerchantScope(IAuthAccount account) {
-        MerchantAuthAccount authAccount = merchantAuthAccount(account);
-        if (ObjectUtils.isEmpty(authAccount)) {
-            return null;
-        }
-
-        Scope scope = Scope.builder()
-                .memberType(authAccount.getMemberType())
-                .province(authAccount.getProvince())
-                .city(authAccount.getCity())
-                .district(authAccount.getDistrict())
-                .street(authAccount.getStreet())
-                .community(authAccount.getCommunity())
-                .build();
-
-        if (authAccount.isLegalPerson()) {
-            scope.setOrgAuthority(OrgAuthority.org);
-            scope.setOrgId(authAccount.getOrgId());
-        } else if (authAccount.isManagerPerson()) {
-            scope.setOrgAuthority(OrgAuthority.store);
-            scope.setStoreId(authAccount.getStoreId());
-        } else {
-            scope.setOrgAuthority(OrgAuthority.none);
-            scope.setStoreId(authAccount.getStoreId());
-        }
-        scope.setShopId(account.getShopId());
-        return scope;
-    }
-
-    public static Scope getConsumerScope(IAuthAccount account) {
-        ConsumerAuthAccount authAccount = consumerAuthAccount(account);
-        if (ObjectUtils.isEmpty(authAccount)) {
-            return null;
-        }
-
-        Scope scope = Scope.builder()
-                .memberType(authAccount.getMemberType())
-                .province(authAccount.getProvince())
-                .city(authAccount.getCity())
-                .district(authAccount.getDistrict())
-                .street(authAccount.getStreet())
-                .community(authAccount.getCommunity())
-                .build();
-
-        if (authAccount.isLegalPerson()) {
-            scope.setOrgAuthority(OrgAuthority.org);
-            scope.setOrgId(authAccount.getOrgId());
-        } else if (authAccount.isManagerPerson()) {
-            scope.setOrgAuthority(OrgAuthority.store);
-            scope.setStoreId(authAccount.getStoreId());
-        } else {
-            scope.setOrgAuthority(OrgAuthority.none);
-            scope.setStoreId(authAccount.getStoreId());
-        }
-        scope.setShopId(account.getShopId());
-        return scope;
-    }
-
-    public static Scope getApiScope(IAuthAccount account) {
-        ApiAuthAccount authAccount = apiAuthAccount(account);
-        if (ObjectUtils.isEmpty(authAccount)) {
-            return null;
-        }
-
-        Scope scope = Scope.builder()
-                .memberType(authAccount.getMemberType())
-                .province(authAccount.getProvince())
-                .city(authAccount.getCity())
-                .district(authAccount.getDistrict())
-                .street(authAccount.getStreet())
-                .community(authAccount.getCommunity())
-                .build();
-
-        if (authAccount.isLegalPerson()) {
-            scope.setOrgAuthority(OrgAuthority.org);
-            scope.setOrgId(authAccount.getOrgId());
-        } else if (authAccount.isManagerPerson()) {
-            scope.setOrgAuthority(OrgAuthority.store);
-            scope.setStoreId(authAccount.getStoreId());
-        } else {
-            scope.setOrgAuthority(OrgAuthority.none);
-            scope.setStoreId(authAccount.getStoreId());
-        }
-        scope.setShopId(account.getShopId());
-        return scope;
-    }
-
+    // todo
+//    public static Scope getAdminScope(IAuthAccount account) {
+//        AdminAuthAccount authAccount = adminAuthAccount(account);
+//        if (ObjectUtils.isEmpty(authAccount)) {
+//            return null;
+//        }
+//        return Scope.builder()
+//                .memberType(authAccount.getMemberType())
+//                .orgAuthority(authAccount.getOrgAuthority())
+//                .province(authAccount.getProvince())
+//                .city(authAccount.getCity())
+//                .district(authAccount.getDistrict())
+//                .street(authAccount.getStreet())
+//                .community(authAccount.getCommunity())
+//                .build();
+//    }
+//
+//    public static Scope getTenantScope(IAuthAccount account) {
+//        TenantAuthAccount authAccount = tenantAuthAccount(account);
+//        if (ObjectUtils.isEmpty(authAccount)) {
+//            return null;
+//        }
+//
+//        Scope scope = Scope.builder()
+//                .memberType(authAccount.getMemberType())
+//                .province(authAccount.getProvince())
+//                .city(authAccount.getCity())
+//                .district(authAccount.getDistrict())
+//                .street(authAccount.getStreet())
+//                .community(authAccount.getCommunity())
+//                .build();
+//
+//        if (authAccount.isLegalPerson()) {
+//            scope.setOrgAuthority(OrgAuthority.org);
+//            scope.setOrgId(authAccount.getOrgId());
+//        } else if (authAccount.isManagerPerson()) {
+//            scope.setOrgAuthority(OrgAuthority.store);
+//            scope.setStoreId(authAccount.getStoreId());
+//        } else {
+//            scope.setOrgAuthority(OrgAuthority.none);
+//            scope.setStoreId(authAccount.getStoreId());
+//        }
+//        scope.setShopId(account.getShopId());
+//        return scope;
+//    }
+//
+//    public static Scope getmerchantScope(IAuthAccount account) {
+//        MerchantAuthAccount authAccount = merchantAuthAccount(account);
+//        if (ObjectUtils.isEmpty(authAccount)) {
+//            return null;
+//        }
+//
+//        Scope scope = Scope.builder()
+//                .memberType(authAccount.getMemberType())
+//                .province(authAccount.getProvince())
+//                .city(authAccount.getCity())
+//                .district(authAccount.getDistrict())
+//                .street(authAccount.getStreet())
+//                .community(authAccount.getCommunity())
+//                .build();
+//
+//        if (authAccount.isLegalPerson()) {
+//            scope.setOrgAuthority(OrgAuthority.org);
+//            scope.setOrgId(authAccount.getOrgId());
+//        } else if (authAccount.isManagerPerson()) {
+//            scope.setOrgAuthority(OrgAuthority.store);
+//            scope.setStoreId(authAccount.getStoreId());
+//        } else {
+//            scope.setOrgAuthority(OrgAuthority.none);
+//            scope.setStoreId(authAccount.getStoreId());
+//        }
+//        scope.setShopId(account.getShopId());
+//        return scope;
+//    }
+//
+//    public static Scope getConsumerScope(IAuthAccount account) {
+//        ConsumerAuthAccount authAccount = consumerAuthAccount(account);
+//        if (ObjectUtils.isEmpty(authAccount)) {
+//            return null;
+//        }
+//
+//        Scope scope = Scope.builder()
+//                .memberType(authAccount.getMemberType())
+//                .province(authAccount.getProvince())
+//                .city(authAccount.getCity())
+//                .district(authAccount.getDistrict())
+//                .street(authAccount.getStreet())
+//                .community(authAccount.getCommunity())
+//                .build();
+//
+//        if (authAccount.isLegalPerson()) {
+//            scope.setOrgAuthority(OrgAuthority.org);
+//            scope.setOrgId(authAccount.getOrgId());
+//        } else if (authAccount.isManagerPerson()) {
+//            scope.setOrgAuthority(OrgAuthority.store);
+//            scope.setStoreId(authAccount.getStoreId());
+//        } else {
+//            scope.setOrgAuthority(OrgAuthority.none);
+//            scope.setStoreId(authAccount.getStoreId());
+//        }
+//        scope.setShopId(account.getShopId());
+//        return scope;
+//    }
+//
+//    public static Scope getApiScope(IAuthAccount account) {
+//        ApiAuthAccount authAccount = apiAuthAccount(account);
+//        if (ObjectUtils.isEmpty(authAccount)) {
+//            return null;
+//        }
+//
+//        Scope scope = Scope.builder()
+//                .memberType(authAccount.getMemberType())
+//                .province(authAccount.getProvince())
+//                .city(authAccount.getCity())
+//                .district(authAccount.getDistrict())
+//                .street(authAccount.getStreet())
+//                .community(authAccount.getCommunity())
+//                .build();
+//
+//        if (authAccount.isLegalPerson()) {
+//            scope.setOrgAuthority(OrgAuthority.org);
+//            scope.setOrgId(authAccount.getOrgId());
+//        } else if (authAccount.isManagerPerson()) {
+//            scope.setOrgAuthority(OrgAuthority.store);
+//            scope.setStoreId(authAccount.getStoreId());
+//        } else {
+//            scope.setOrgAuthority(OrgAuthority.none);
+//            scope.setStoreId(authAccount.getStoreId());
+//        }
+//        scope.setShopId(account.getShopId());
+//        return scope;
+//    }
     public static Scope getAuthScope() {
         IAuthAccount account = getAuthAccount();
         if (ObjectUtils.isEmpty(account)) {
             return null;
         }
-        switch (account.getMemberType()) {
-            case admin -> {
-                return getAdminScope(account);
-            }
-            case tenant -> {
-                return getTenantScope(account);
-            }
-            case merchant -> {
-                return getmerchantScope(account);
-            }
 
-            case consumer -> {
-                return getConsumerScope(account);
-            }
-
-            case api -> {
-                return getApiScope(account);
-            }
-        }
+        // todo
+//        switch (account.getMemberType()) {
+//            case admin -> {
+//                return getAdminScope(account);
+//            }
+//            case tenant -> {
+//                return getTenantScope(account);
+//            }
+//            case merchant -> {
+//                return getmerchantScope(account);
+//            }
+//
+//            case consumer -> {
+//                return getConsumerScope(account);
+//            }
+//
+//            case api -> {
+//                return getApiScope(account);
+//            }
+//        }
         return null;
     }
 
     public static String getRequestIp() {
-        if (isMq()){
+        if (isMq()) {
             return ConsumerData.get(DataKeys.REQUEST_IP);
         }
         return GlobalData.get(DataKeys.REQUEST_IP);

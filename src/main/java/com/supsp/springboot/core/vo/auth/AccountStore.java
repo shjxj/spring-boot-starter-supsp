@@ -1,4 +1,4 @@
-package com.supsp.springboot.core.vo.auth.admin;
+package com.supsp.springboot.core.vo.auth;
 
 import com.supsp.springboot.core.annotations.SensitiveData;
 import com.supsp.springboot.core.base.BaseAccountStore;
@@ -18,7 +18,7 @@ import java.io.Serial;
 @Accessors(chain = true)
 @SuperBuilder
 @SensitiveData
-public class AdminAccountStore extends BaseAccountStore implements IAccountStore {
+public class AccountStore extends BaseAccountStore implements IAccountStore {
     @Serial
     private static final long serialVersionUID = -1601893407495568174L;
 

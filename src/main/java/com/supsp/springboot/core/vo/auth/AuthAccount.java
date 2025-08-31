@@ -1,12 +1,9 @@
 package com.supsp.springboot.core.vo.auth;
+
+
 import com.supsp.springboot.core.annotations.SensitiveData;
 import com.supsp.springboot.core.base.*;
-import com.supsp.springboot.core.enums.AuthMemberType;
 import com.supsp.springboot.core.interfaces.IAuthAccount;
-import com.supsp.springboot.core.vo.auth.tenant.TenantAccountOrg;
-import com.supsp.springboot.core.vo.auth.tenant.TenantAccountPost;
-import com.supsp.springboot.core.vo.auth.tenant.TenantAccountShop;
-import com.supsp.springboot.core.vo.auth.tenant.TenantAccountStore;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -25,94 +22,80 @@ import java.util.List;
 @SuperBuilder
 @Accessors(chain = true)
 @SensitiveData
-public class TenantAuthAccount extends BaseAuthAccount implements IAuthAccount {
+public class AuthAccount extends BaseAuthAccount implements IAuthAccount {
 
     @Serial
-    private static final long serialVersionUID = 2721671749738146855L;
-
-    @Schema(title = "登录用户类型")
-    protected AuthMemberType memberType = AuthMemberType.tenant;
+    private static final long serialVersionUID = -8143916037472920916L;
 
     @Schema(title = "组织列表")
-    private List<TenantAccountOrg> orgs;
+    protected List<AccountOrg> orgs;
 
     @Schema(title = "门店列表")
-    private List<TenantAccountStore> stores;
+    protected List<AccountStore> stores;
 
     @Schema(title = "岗位列表")
-    private List<TenantAccountPost> posts;
+    protected List<AccountPost> posts;
 
     @Schema(title = "组织信息")
-    private TenantAccountOrg org;
+    protected AccountOrg org;
 
     @Schema(title = "门店信息")
-    private TenantAccountStore store;
+    protected AccountStore store;
 
     @Schema(title = "店铺信息")
-    private TenantAccountShop shop;
-
-    @Override
-    public AuthMemberType getMemberType() {
-        return memberType;
-    }
-
-    @Override
-    public void setMemberType(AuthMemberType memberType) {
-        this.memberType = memberType;
-    }
+    protected AccountShop shop;
 
     @Override
     public <T extends BaseAccountOrg> void setOrgs(List<T> orgs) {
         try {
-            this.orgs = (List<TenantAccountOrg>) orgs;
+            this.orgs = (List<AccountOrg>) orgs;
         } catch (Exception e) {
-            // log
+            //
         }
     }
 
     @Override
     public <T extends BaseAccountStore> void setStores(List<T> stores) {
         try {
-            this.stores = (List<TenantAccountStore>) stores;
+            this.stores = (List<AccountStore>) stores;
         } catch (Exception e) {
-            // log
+            //
         }
     }
 
     @Override
     public <T extends BaseAccountPost> void setPosts(List<T> posts) {
         try {
-            this.posts = (List<TenantAccountPost>) posts;
+            this.posts = (List<AccountPost>) posts;
         } catch (Exception e) {
-            // log
+            //
         }
     }
 
     @Override
     public <T extends BaseAccountOrg> void setOrg(T org) {
         try {
-            this.org = (TenantAccountOrg) org;
+            this.org = (AccountOrg) org;
         } catch (Exception e) {
-            // log
+            //
         }
     }
 
     @Override
     public <T extends BaseAccountStore> void setStore(T store) {
         try {
-            this.store = (TenantAccountStore) store;
+            this.store = (AccountStore) store;
         } catch (Exception e) {
-            // log
+            //
         }
     }
 
     @Override
     public <T extends BaseAccountShop> void setShop(T shop) {
         try {
-            this.shop = (TenantAccountShop) shop;
+            this.shop = (AccountShop) shop;
         } catch (Exception e) {
-            // log
+            //
         }
     }
-
 }

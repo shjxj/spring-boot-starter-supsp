@@ -1,4 +1,4 @@
-package com.supsp.springboot.core.vo.auth.tenant;
+package com.supsp.springboot.core.vo.auth;
 
 import com.supsp.springboot.core.annotations.SensitiveData;
 import com.supsp.springboot.core.base.BaseAccountShop;
@@ -14,10 +14,11 @@ import java.io.Serial;
 @EqualsAndHashCode(callSuper = true)
 @Data
 @AllArgsConstructor
-@Accessors(chain = true)
 @SuperBuilder
+@Accessors(chain = true)
 @SensitiveData
-public class TenantAccountShop extends BaseAccountShop implements IAccountShop {
+public class AccountShop extends BaseAccountShop implements IAccountShop {
+
     @Serial
-    private static final long serialVersionUID = 7417471829218389318L;
+    private static final long serialVersionUID = -5981860296237318221L;
 }

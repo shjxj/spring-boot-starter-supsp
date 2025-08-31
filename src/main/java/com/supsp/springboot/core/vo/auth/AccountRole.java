@@ -1,8 +1,8 @@
-package com.supsp.springboot.core.vo.auth.admin;
+package com.supsp.springboot.core.vo.auth;
 
-import com.supsp.springboot.core.base.BaseAccountPost;
+import com.supsp.springboot.core.base.BaseAccountRole;
 import com.supsp.springboot.core.enums.AuthMemberType;
-import com.supsp.springboot.core.interfaces.IAccountPost;
+import com.supsp.springboot.core.interfaces.IAccountRole;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -16,9 +16,9 @@ import java.io.Serial;
 @AllArgsConstructor
 @Accessors(chain = true)
 @SuperBuilder
-public class AdminAccountPost extends BaseAccountPost implements IAccountPost {
+public class AccountRole extends BaseAccountRole implements IAccountRole {
     @Serial
-    private static final long serialVersionUID = 3764628638683580313L;
+    private static final long serialVersionUID = 8051818851338646098L;
 
     @Override
     public AuthMemberType getMemberType(){
