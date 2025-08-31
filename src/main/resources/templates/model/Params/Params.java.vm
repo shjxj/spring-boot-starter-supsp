@@ -1,0 +1,87 @@
+package ${custom.packageParams}.${entity};
+
+#foreach($pkg in ${table.importPackages})
+import ${pkg};
+#end
+import com.supsp.supbackend.core.annotations.DbParamField;
+import com.supsp.supbackend.core.annotations.DbParams;
+import com.supsp.supbackend.core.model.BaseEntityParams;
+import com.supsp.supbackend.core.enums.QueryType;
+import com.supsp.supbackend.core.model.IEntityParams;
+import ${custom.packageEntity}.${entity};
+import lombok.Data;
+import lombok.experimental.SuperBuilder;
+import lombok.EqualsAndHashCode;
+import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
+import lombok.experimental.Accessors;
+import lombok.extern.slf4j.Slf4j;
+import io.swagger.v3.oas.annotations.media.Schema;
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
+import java.io.Serial;
+
+/**
+ * <p>
+ * #if(${table.comment} != "")$!{table.comment}#else${entity}#end 查询参数
+ * </p>
+ *
+ * @author ${author}
+ * @since ${date}
+ */
+@EqualsAndHashCode(callSuper = true)
+@Data
+@SuperBuilder
+@AllArgsConstructor
+@NoArgsConstructor
+@Accessors(chain = true)
+@Slf4j
+@DbParams
+@Schema(name = "${entity}Params", description = "#if(${table.comment} != "")$!{table.comment}#else${entity}#end 查询参数")
+public class ${entity}Params extends BaseEntityParams<${entity}> implements IEntityParams<${entity}> {
+
+    @Serial
+    private static final long serialVersionUID = ${serial.ParamsVersionUID}L;
+
+    /**
+     * unix 时间戳 [无需前端设置]
+     */
+    @Schema(title = "unix 时间戳", description = "无需前端设置")
+    @JsonIgnore
+    private Long currentTimestamp;
+
+## ----------  BEGIN 字段循环遍历  ----------
+#foreach($field in ${table.fields})
+#if(!$deleteColumns.contains(${field.annotationColumnName}) && !$updateColumns.contains(${field.annotationColumnName}) && !$ignoreParamsColumns.contains(${field.annotationColumnName}))
+
+#if("$!field.comment" != "")
+#if(${springdoc})
+    @Schema(title = "#if(${field.comment} != "")${field.comment}#else${field.propertyName}#end")
+#elseif(${swagger})
+    @ApiModelProperty("${field.comment}")
+#else
+    /**
+     * ${field.comment}
+     */
+#end
+#end
+    @DbParamField(property = "${field.propertyName}", column = "${field.annotationColumnName}", type = QueryType.eq)
+#if($dateTimeProperty.contains(${field.propertyType}))
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
+#end
+    private #if($memberTypeColumns.contains(${field.annotationColumnName}))AuthMemberType#elseif(${field.annotationColumnName} == "enable_status")EnableStatus#elseif(${field.annotationColumnName} == "show_status")ShowStatus#else${field.propertyType}#end ${field.propertyName};
+#end
+#end
+## ----------  END 字段循环遍历  ----------
+## --foreach end---
+
+###if(${entityColumnConstant})
+###foreach($field in ${table.fields})
+###if(!$updateColumns.contains(${field.annotationColumnName}) && !$ignoreVoColumns.contains(${field.annotationColumnName}))
+##
+##    public static final String ${field.name.toUpperCase()} = "${field.name}";
+###end
+###end
+###end
+}

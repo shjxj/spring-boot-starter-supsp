@@ -1,13 +1,12 @@
 package com.supsp.springboot.core.config;
 
-import java.time.Duration;
-
+import lombok.Data;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.stereotype.Component;
 
-import lombok.Data;
+import java.time.Duration;
 
 /**
  * 核心配置类 - 优化版本
@@ -42,6 +41,9 @@ public class CoreProperties implements InitializingBean {
 
     @Value("${supsp.app.profile-active:dev}")
     private String profileActive;
+
+    @Value("${supsp.app.base-pkg:com.supsp}")
+    private String basePkg;
 
     //
     @Value("${supsp.app.prefix:SupBackend}")

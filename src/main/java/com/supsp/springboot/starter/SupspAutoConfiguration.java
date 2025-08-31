@@ -6,8 +6,11 @@ import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import java.util.concurrent.Executor;
 import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
+
+import java.util.concurrent.Executor;
+
+import org.springframework.beans.factory.annotation.Qualifier;
 
 /**
  * Auto-configuration for Supsp Service
@@ -20,7 +23,7 @@ public class SupspAutoConfiguration {
     
     @Bean
     @ConditionalOnMissingBean
-    public SupspService supspService(CoreProperties properties) {
+    public SupspService supspService(@Qualifier("coreProperties") CoreProperties properties) {
         return new DefaultSupspService(properties);
     }
     
@@ -35,7 +38,7 @@ public class SupspAutoConfiguration {
     @Bean(name = "supspAsyncExecutor")
     @ConditionalOnProperty(prefix = "supsp.async.threadPool", name = "corePoolSize")
     @ConditionalOnMissingBean(name = "supspAsyncExecutor")
-    public Executor supspAsyncExecutor(CoreProperties properties) {
+    public Executor supspAsyncExecutor(@Qualifier("coreProperties") CoreProperties properties) {
         ThreadPoolTaskExecutor executor = new ThreadPoolTaskExecutor();
         
         executor.setCorePoolSize(properties.getAsyncCorePoolSize());
@@ -55,7 +58,7 @@ public class SupspAutoConfiguration {
      */
     @Bean
     @ConditionalOnMissingBean(name = "appProperties")
-    public CoreProperties appProperties(CoreProperties properties) {
+    public CoreProperties appProperties(@Qualifier("coreProperties") CoreProperties properties) {
         return properties;
     }
     
@@ -64,7 +67,7 @@ public class SupspAutoConfiguration {
      */
     @Bean
     @ConditionalOnMissingBean(name = "encodeProperties")
-    public CoreProperties encodeProperties(CoreProperties properties) {
+    public CoreProperties encodeProperties(@Qualifier("coreProperties") CoreProperties properties) {
         return properties;
     }
     
@@ -73,7 +76,7 @@ public class SupspAutoConfiguration {
      */
     @Bean
     @ConditionalOnMissingBean(name = "cacheProperties")
-    public CoreProperties cacheProperties(CoreProperties properties) {
+    public CoreProperties cacheProperties(@Qualifier("coreProperties") CoreProperties properties) {
         return properties;
     }
     
@@ -82,7 +85,7 @@ public class SupspAutoConfiguration {
      */
     @Bean
     @ConditionalOnMissingBean(name = "asyncProperties")
-    public CoreProperties asyncProperties(CoreProperties properties) {
+    public CoreProperties asyncProperties(@Qualifier("coreProperties") CoreProperties properties) {
         return properties;
     }
     
@@ -91,7 +94,7 @@ public class SupspAutoConfiguration {
      */
     @Bean
     @ConditionalOnMissingBean(name = "docProperties")
-    public CoreProperties docProperties(CoreProperties properties) {
+    public CoreProperties docProperties(@Qualifier("coreProperties") CoreProperties properties) {
         return properties;
     }
 }

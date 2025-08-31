@@ -98,6 +98,12 @@
       "sourceType": "com.supsp.springboot.core.config.CoreProperties$App"
     },
     {
+      "name": "supsp.app.base-pkg",
+      "type": "java.lang.String",
+      "description": "Application BasePkg",
+      "sourceType": "com.supsp.springboot.core.config.CoreProperties$App"
+    },
+    {
       "name": "supsp.encode.secret",
       "type": "java.lang.String",
       "description": "Encryption secret",

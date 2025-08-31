@@ -1,0 +1,19 @@
+package ${custom.packageCtrlAdmin};
+
+import ${custom.packageParams}.${entity}.${entity}Request;
+import ${custom.packageEntity}.${entity};
+import ${package.Mapper}.${table.mapperName};
+import ${package.ServiceImpl}.${table.serviceImplName};
+import ${custom.packageModel}.${entity}Model;
+import ${custom.packageBaseController}.${entity}BaseController;
+import io.swagger.v3.oas.annotations.tags.Tag;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.web.bind.annotation.*;
+
+@RestController
+@RequestMapping("/admin/${userCustom.controllerUrl}")
+@Tag(name = "Admin${entity}", description = "#if(${table.comment} != "")$!{table.comment}#else${entity}#end [管理端]")
+@Slf4j
+public class ${entity}Controller extends ${entity}BaseController {
+
+}

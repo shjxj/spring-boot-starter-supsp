@@ -1,0 +1,221 @@
+package ${custom.packageEntity};
+
+#foreach($pkg in ${table.importPackages})
+import ${pkg};
+#end
+#if(${springdoc})
+import com.supsp.supbackend.core.annotations.DBEntity;
+import com.supsp.supbackend.core.annotations.DataId;
+import com.supsp.supbackend.core.annotations.EntityColumn;
+import com.supsp.supbackend.core.annotations.SensitiveData;
+import io.swagger.v3.oas.annotations.media.Schema;
+#elseif(${swagger})
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
+#end
+#if(${entityLombokModel})
+import lombok.Data;
+import lombok.Builder;
+import lombok.EqualsAndHashCode;
+import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
+#if(${chainModel})
+import lombok.experimental.Accessors;
+#end
+import com.baomidou.mybatisplus.annotation.*;
+import com.supsp.supbackend.core.config.ValidGroup;
+import jakarta.validation.constraints.Max;
+import jakarta.validation.constraints.Min;
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
+import java.io.Serial;
+#end
+
+/**
+ * <p>
+ * #if(${table.comment} != "")$!{table.comment}#else${entity}#end
+ * </p>
+ *
+ * @author ${author}
+ * @since ${date}
+ */
+#if(${entityLombokModel})
+@EqualsAndHashCode(callSuper = true)
+@Data
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
+  #if(${chainModel})
+@Accessors(chain = true)
+  #end
+#end
+#if(${table.convert})
+@TableName("${schemaName}${table.name}")
+#end
+#if(${springdoc})
+@Schema(name = "${entity}", description = "#if(${table.comment} != "")$!{table.comment}#else${entity}#end")
+#elseif(${swagger})
+@ApiModel(value = "${entity}对象", description = "#if(${table.comment} != "")$!{table.comment}#else${entity}#end")
+#end
+@DBEntity()
+@SensitiveData
+#if(${superEntityClass})
+public class ${entity} extends ${superEntityClass}#if(${activeRecord})<${entity}>#end {
+#elseif(${activeRecord})
+public class ${entity} extends BaseModelEntity<${entity}> {
+#elseif(${entitySerialVersionUID})
+public class ${entity} implements Serializable {
+#else
+public class ${entity} {
+#end
+#if(${entitySerialVersionUID})
+
+    @Serial
+    private static final long serialVersionUID = ${serial.VoVersionUID}L;
+#end
+## ----------  BEGIN 字段循环遍历  ----------
+#foreach($field in ${table.fields})
+
+#if(${field.keyFlag})
+#set($keyPropertyName=${field.propertyName})
+#end
+#if("$!field.comment" != "")
+  #if(${springdoc})
+    @Schema(title = "#if(${field.comment} != "")${field.comment}#else${field.propertyName}#end"#if($updateColumns.contains(${field.annotationColumnName})), description = "无需前端设置"#end#if(${field.keyFlag} || ${field.annotationColumnName} == ${tableDataId} || $readOnlyColumns.contains(${field.annotationColumnName})), accessMode = Schema.AccessMode.READ_ONLY#end#if(${field.keyFlag} || $docHiddenColumns.contains(${field.annotationColumnName})), hidden = true#end)
+  #elseif(${swagger})
+    @ApiModelProperty("${field.comment}")
+  #else
+    /**
+     * ${field.comment}
+     */
+  #end
+#end
+#if(${field.keyFlag})
+## 主键
+  #if(${field.keyIdentityFlag})
+    @TableId(value = "${field.annotationColumnName}", type = IdType.AUTO)
+  #elseif(!$null.isNull(${idType}) && "$!idType" != "")
+    @TableId(value = "${field.annotationColumnName}", type = IdType.${idType})
+  #elseif(${field.convert})
+    @TableId("${field.annotationColumnName}")
+  #end
+    // @TableField(value = "${field.annotationColumnName}", insertStrategy = FieldStrategy.NEVER, updateStrategy = FieldStrategy.NEVER)
+    @EntityColumn(select = false, defaultSelect = false)
+## 普通字段
+#elseif(${field.fill})
+## -----   存在字段填充设置   -----
+  #if(${field.convert})
+    @TableField(value = "${field.annotationColumnName}", fill = FieldFill.${field.fill})
+  #else
+    @TableField(fill = FieldFill.${field.fill})
+  #end
+#elseif(${field.convert})
+#if($insertColumns.contains(${field.annotationColumnName}))
+    @TableField(value = "${field.annotationColumnName}", insertStrategy = FieldStrategy.NOT_NULL, updateStrategy = FieldStrategy.NEVER)
+#elseif($updateColumns.contains(${field.annotationColumnName}))
+    @TableField(value = "${field.annotationColumnName}", insertStrategy = FieldStrategy.NEVER, updateStrategy = FieldStrategy.NEVER)
+#else
+#if(${field.annotationColumnName} == ${tableDataId})
+    @TableField(value = "${field.annotationColumnName}", updateStrategy = FieldStrategy.NEVER)
+#else
+    @TableField(value = "${field.annotationColumnName}")
+#end
+#end
+#end
+## 乐观锁注解
+#if(${field.versionField})
+    @Version
+#end
+## 逻辑删除注解
+#if(${field.logicDeleteField})
+    @TableLogic
+#end
+## DataId 注解
+#if(${field.annotationColumnName} == ${tableDataId})
+    @DataId(value = "${field.annotationColumnName}")
+#end
+#if(${field.annotationColumnName} == "order_sort")
+    @Min(value = 0, message = "最小排序数值为0", groups = {ValidGroup.Insert.class, ValidGroup.Update.class})
+    @Max(value = 65536, message = "最大排序数值为65536", groups = {ValidGroup.Insert.class, ValidGroup.Update.class})
+#end
+#if($deleteColumns.contains(${field.annotationColumnName}) || $entityJsonIgnoreColumns.contains(${field.annotationColumnName}))
+    @JsonIgnore
+#end
+#if($dateTimeProperty.contains(${field.propertyType}))
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
+#end
+#if(!${field.keyFlag})
+#if($ignoreListColumns.contains(${field.annotationColumnName}))
+#if($deleteColumns.contains(${field.annotationColumnName}) || $entityJsonIgnoreColumns.contains(${field.annotationColumnName}))
+    @EntityColumn(select = false, defaultSelect = false)
+#else
+    @EntityColumn(select = true, defaultSelect = false)
+#end
+#else
+    @EntityColumn(select = true, defaultSelect = true#if(${field.annotationColumnName} == ${tableDataId}), isDataId = true#end)
+#end
+#end
+    private ${field.propertyType} ${field.propertyName};
+#end
+## ----------  END 字段循环遍历  ----------
+#if(!${entityLombokModel})
+#foreach($field in ${table.fields})
+  #if(${field.propertyType.equals("boolean")})
+    #set($getprefix="is")
+  #else
+    #set($getprefix="get")
+  #end
+
+    public ${field.propertyType} ${getprefix}${field.capitalName}() {
+        return ${field.propertyName};
+    }
+
+  #if(${chainModel})
+    public ${entity} set${field.capitalName}(${field.propertyType} ${field.propertyName}) {
+  #else
+    public void set${field.capitalName}(${field.propertyType} ${field.propertyName}) {
+  #end
+        this.${field.propertyName} = ${field.propertyName};
+  #if(${chainModel})
+        return this;
+  #end
+    }
+#end
+## --foreach end---
+#end
+## --end of #if(!${entityLombokModel})--
+#if(${entityColumnConstant})
+  #foreach($field in ${table.fields})
+
+    public static final String ${field.name.toUpperCase()} = "${field.name}";
+  #end
+#end
+
+#if(${activeRecord})
+
+    @Override
+    public Serializable pkVal() {
+  #if(${keyPropertyName})
+        return this.${keyPropertyName};
+  #else
+        return null;
+  #end
+    }
+#end
+#if(!${entityLombokModel})
+
+    @Override
+    public String toString() {
+        return "${entity}{" +
+  #foreach($field in ${table.fields})
+    #if($!{foreach.index}==0)
+        "${field.propertyName} = " + ${field.propertyName} +
+    #else
+        ", ${field.propertyName} = " + ${field.propertyName} +
+    #end
+  #end
+        "}";
+    }
+#end
+}

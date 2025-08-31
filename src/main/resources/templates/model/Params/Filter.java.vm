@@ -1,0 +1,47 @@
+package ${custom.packageParams}.${entity};
+
+import com.supsp.supbackend.core.annotations.DbFilter;
+import com.supsp.supbackend.core.model.BaseEntityFilter;
+import com.supsp.supbackend.core.model.IEntityFilter;
+import ${custom.packageEntity}.${entity};
+import lombok.Builder;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
+import lombok.experimental.Accessors;
+import lombok.extern.slf4j.Slf4j;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import io.swagger.v3.oas.annotations.media.Schema;
+
+import java.io.Serial;
+
+/**
+ * <p>
+ * #if(${table.comment} != "")$!{table.comment}#else${entity}#end 查询筛选
+ * </p>
+ *
+ * @author ${author}
+ * @since ${date}
+ */
+@EqualsAndHashCode(callSuper = true)
+@Data
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
+@Accessors(chain = true)
+@Slf4j
+@DbFilter
+@Schema(name = "${entity}Filter", description = "#if(${table.comment} != "")$!{table.comment}#else${entity}#end 查询筛选")
+public class ${entity}Filter extends BaseEntityFilter<${entity}> implements IEntityFilter<${entity}> {
+
+    @Serial
+    private static final long serialVersionUID = ${serial.FilterVersionUID}L;
+
+    /**
+     * unix 时间戳 [无需前端设置]
+     */
+    @Schema(title = "unix 时间戳", description = "无需前端设置")
+    @JsonIgnore
+    private Long currentTimestamp;
+}

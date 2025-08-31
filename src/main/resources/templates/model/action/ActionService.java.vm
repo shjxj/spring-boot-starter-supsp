@@ -1,0 +1,17 @@
+package ${custom.packageActionService};
+
+/**
+ * <p>
+ * #if(${table.comment} != "")$!{table.comment}#else${entity}#end Action 服务类
+ * </p>
+ *
+ * @author ${author}
+ * @since ${date}
+ */
+#if(${kotlin})
+interface I${entity}ActionService
+#else
+public interface I${entity}ActionService {
+
+}
+#end

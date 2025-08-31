@@ -1,0 +1,390 @@
+package ${custom.packageBaseController};
+
+import com.supsp.supbackend.core.annotations.ApiIdempotent;
+import com.supsp.supbackend.core.base.ActionResult;
+import com.supsp.supbackend.core.base.PagerData;
+import com.supsp.supbackend.core.config.ValidGroup;
+import com.supsp.supbackend.core.consts.Constants;
+import com.supsp.supbackend.core.exceptions.ModelException;
+import com.supsp.supbackend.core.model.BaseModelController;
+import ${custom.packageParams}.${entity}.${entity}Request;
+import ${custom.packageEntity}.${entity};
+import ${package.Mapper}.${table.mapperName};
+import ${package.ServiceImpl}.${table.serviceImplName};
+import ${custom.packageModel}.${entity}Model;
+import ${custom.packageActionService}.I${entity}ActionService;
+import com.supsp.supbackend.core.vo.TagInfo;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
+import jakarta.annotation.Nullable;
+import jakarta.annotation.Resource;
+import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.HashMap;
+import java.util.List;
+import java.util.Set;
+
+/**
+ * <p>
+ * #if(${table.comment} != "")$!{table.comment}#else${entity}#end 控制器
+ * </p>
+ *
+ * @author ${author}
+ * @since ${date}
+ */
+#if(${restControllerStyle})
+@RestController
+#else
+@Controller
+#end
+public abstract class ${table.controllerName} extends BaseModelController<${entity}Model, ${table.serviceImplName}, ${table.mapperName}, ${entity}> {
+
+    @Resource
+    protected I${entity}ActionService ${tableCamel}ActionService;
+
+    /**
+     * 新建
+     * ${ctrlDoc}
+     * @param data
+     * @return
+     * @throws ModelException
+     */
+    @PostMapping("/create${uriPrefix}")
+    @Operation(summary = "新建")
+    @ApiIdempotent
+    public ActionResult create(${ctrlParams}
+            @Parameter(description = "数据", name = "data")
+            @Validated({ValidGroup.Insert.class}) @RequestBody ${entity} data
+    ) throws ModelException {
+        return this.model.create(${callParams} data);
+    }
+
+    /**
+     * 编辑
+     * ${ctrlDoc}
+     * @param id
+     * @param data
+     * @return
+     * @throws ModelException
+     */
+    @PostMapping("/edit${uriPrefix}/{id}")
+    @Operation(summary = "编辑")
+    @ApiIdempotent
+    public ActionResult edit(${ctrlParams}
+            @Parameter(description = "ID", name = "id", required = true)
+            @PathVariable(value = "id") long id,
+            @Parameter(description = "数据", name = "data")
+            @Validated({ValidGroup.Update.class}) @RequestBody ${entity} data
+    ) throws ModelException {
+        return this.model.edit(${callParams} id, data);
+    }
+
+    /**
+     * 详情
+     * ${ctrlDoc}
+     * @param id
+     * @return
+     * @throws ModelException
+     */
+    @GetMapping("/detail${uriPrefix}/{id}")
+    @Operation(summary = "详情")
+    public ${entity} detail(${ctrlParams}
+            @Parameter(description = "ID", name = "id", required = true)
+            @PathVariable(value = "id") long id
+    ) throws ModelException {
+        return this.model.detail(${callParams} id);
+    }
+
+    /**
+     * 分页列表
+     * ${ctrlDoc}
+     * @param entityRequest
+     * @return
+     * @throws ModelException
+     */
+    @PostMapping("/list${uriPrefix}")
+    @Operation(summary = "分页列表")
+    public PagerData<${entity}> list(${ctrlParams}
+            @Parameter(description = "查询信息", name = "entityRequest")
+            @Nullable @RequestBody ${entity}Request entityRequest
+    ) throws ModelException {
+        return this.model.queryList(${callParams} entityRequest);
+    }
+
+    /**
+     * 查询列表
+     * ${ctrlDoc}
+     * @param entityRequest
+     * @return
+     * @throws ModelException
+     */
+    @PostMapping("/query${uriPrefix}")
+    @Operation(summary = "查询列表")
+    public List<${entity}> query(${ctrlParams}
+            @Parameter(description = "查询信息", name = "query")
+            @Nullable @RequestBody ${entity}Request entityRequest
+    ) throws ModelException {
+        return this.model.query(${callParams} entityRequest);
+    }
+
+    /**
+     * 启用
+     * ${ctrlDoc}
+     * @param id
+     * @return
+     * @throws ModelException
+     */
+    @GetMapping("/enable${uriPrefix}/{id}")
+    @Operation(summary = "启用")
+    @ApiIdempotent
+    public ActionResult enable(${ctrlParams}
+            @Parameter(description = "ID", name = "id", required = true)
+            @PathVariable(value = "id") long id
+    ) throws ModelException {
+        return this.model.enable(${callParams} id);
+    }
+
+    /**
+     * 批量启用
+     * ${ctrlDoc}
+     * @param idList
+     * @return
+     * @throws ModelException
+     */
+    @PostMapping("/batch/enable${uriPrefix}")
+    @Operation(summary = "批量启用")
+    @ApiIdempotent
+    public ActionResult batchEnable(${ctrlParams}
+            @Parameter(description = "ID列表", name = "idList", required = true)
+            @Nullable @RequestBody Set<Long> idList
+    ) throws ModelException {
+        return this.model.batchEnable(${callParams} idList);
+    }
+
+    /**
+     * 禁用
+     * ${ctrlDoc}
+     * @param id
+     * @return
+     * @throws ModelException
+     */
+    @GetMapping("/disable${uriPrefix}/{id}")
+    @Operation(summary = "禁用")
+    @ApiIdempotent
+    public ActionResult disable(${ctrlParams}
+            @Parameter(description = "ID", name = "id", required = true)
+            @PathVariable(value = "id") long id
+    ) throws ModelException {
+        return this.model.disable(${callParams} id);
+    }
+
+    /**
+     * 批量禁用
+     * ${ctrlDoc}
+     * @param idList
+     * @return
+     * @throws ModelException
+     */
+    @PostMapping("/batch/disable${uriPrefix}")
+    @Operation(summary = "批量禁用")
+    @ApiIdempotent
+    public ActionResult batchDisable(${ctrlParams}
+            @Parameter(description = "ID列表", name = "idList", required = true)
+            @Nullable @RequestBody Set<Long> idList
+    ) throws ModelException {
+        return this.model.batchDisable(${callParams} idList);
+    }
+
+    /**
+     * 显示
+     * ${ctrlDoc}
+     * @param id
+     * @return
+     * @throws ModelException
+     */
+    @GetMapping("/show${uriPrefix}/{id}")
+    @Operation(summary = "显示")
+    @ApiIdempotent
+    public ActionResult show(${ctrlParams}
+            @Parameter(description = "ID", name = "id", required = true)
+            @PathVariable(value = "id") long id
+    ) throws ModelException {
+        return this.model.show(${callParams} id);
+    }
+
+    /**
+     * 批量显示
+     * ${ctrlDoc}
+     * @param idList
+     * @return
+     * @throws ModelException
+     */
+    @PostMapping("/batch/show${uriPrefix}")
+    @Operation(summary = "批量显示")
+    @ApiIdempotent
+    public ActionResult batchShow(${ctrlParams}
+            @Parameter(description = "ID列表", name = "idList", required = true)
+            @Nullable @RequestBody Set<Long> idList
+    ) throws ModelException {
+        return this.model.batchShow(${callParams} idList);
+    }
+
+    /**
+     * 隐藏
+     * ${ctrlDoc}
+     * @param id
+     * @return
+     * @throws ModelException
+     */
+    @GetMapping("/hidden${uriPrefix}/{id}")
+    @Operation(summary = "隐藏")
+    @ApiIdempotent
+    public ActionResult hidden(${ctrlParams}
+            @Parameter(description = "ID", name = "id", required = true)
+            @PathVariable(value = "id") long id
+    ) throws ModelException {
+        return this.model.hidden(${callParams} id);
+    }
+
+    /**
+     * 批量隐藏
+     * ${ctrlDoc}
+     * @param idList
+     * @return
+     * @throws ModelException
+     */
+    @PostMapping("/batch/hidden${uriPrefix}")
+    @Operation(summary = "批量隐藏")
+    @ApiIdempotent
+    public ActionResult batchHidden(${ctrlParams}
+            @Parameter(description = "ID列表", name = "idList", required = true)
+            @Nullable @RequestBody Set<Long> idList
+    ) throws ModelException {
+        return this.model.batchHidden(${callParams} idList);
+    }
+
+    /**
+     * 删除
+     * ${ctrlDoc}
+     * @param id
+     * @return
+     * @throws ModelException
+     */
+    @GetMapping("/delete${uriPrefix}/{id}")
+    @Operation(summary = "删除")
+    @ApiIdempotent
+    public ActionResult delete(${ctrlParams}
+            @Parameter(description = "ID", name = "id", required = true)
+            @PathVariable(value = "id") long id
+    ) throws ModelException {
+        return this.model.delete(${callParams} id);
+    }
+
+    /**
+     * 批量删除
+     * ${ctrlDoc}
+     * @param idList
+     * @return
+     * @throws ModelException
+     */
+    @PostMapping("/batch/delete${uriPrefix}")
+    @Operation(summary = "批量删除")
+    @ApiIdempotent
+    public ActionResult batchDelete(${ctrlParams}
+            @Parameter(description = "ID列表", name = "idList", required = true)
+            @Nullable @RequestBody Set<Long> idList
+    ) throws ModelException {
+        return this.model.batchDelete(${callParams} idList);
+    }
+
+    /**
+     * 设置排序权重
+     * ${ctrlDoc}
+     * @param id
+     * @param order
+     * @return
+     * @throws ModelException
+     */
+    @PostMapping("/set/order${uriPrefix}/{id}")
+    @Operation(summary = "设置排序权重")
+    @ApiIdempotent
+    public ActionResult setOrder(${ctrlParams}
+            @Parameter(description = "ID", name = "id", required = true)
+            @PathVariable(value = "id") long id,
+            @Parameter(description = "order", name = "排序", required = true)
+            @RequestBody int order
+    ) throws ModelException {
+        return this.model.setOrder(${callParams} id, order);
+    }
+
+    /**
+     * 批量设置排序权重
+     * ${ctrlDoc}
+     * @param data
+     * @return
+     * @throws ModelException
+     */
+    @PostMapping("/batch/set/order${uriPrefix}")
+    @Operation(summary = "批量设置排序权重")
+    @ApiIdempotent
+    public ActionResult batchSetOrder(${ctrlParams}
+            @Parameter(description = "批量排序数据", name = "data", required = true)
+            @Nullable @RequestBody HashMap<Long, Integer> data
+    ) throws ModelException {
+        return this.model.batchSetOrder(${callParams} data);
+    }
+
+    /**
+     * 保存数据标签
+     *
+     * @param id
+     * @param tags
+     * @return
+     * @throws ModelException
+     */
+    @PostMapping("/tag/save/{id}")
+    @Operation(summary = "保存数据标签")
+    @ApiIdempotent
+    public ActionResult saveTags(
+            @Parameter(description = "ID", name = "id", required = true)
+            @PathVariable(value = "id") long id,
+            @Parameter(description = "tags", name = "标签", required = true)
+            @RequestBody List<String> tags
+    ) throws ModelException {
+        return this.doSaveOjbectTags(id, tags);
+    }
+
+    /**
+     * 获取数据标签
+     *
+     * @param id
+     * @return
+     * @throws ModelException
+     */
+    @GetMapping("/tag/get/{id}")
+    @Operation(summary = "获取数据标签")
+    public List<String> getTags(
+            @Parameter(description = "ID", name = "id", required = true)
+            @PathVariable(value = "id") long id
+    ) throws ModelException {
+        return this.doGetOjbectTags(id);
+    }
+
+    /**
+     * 获取数据可用标签
+     *
+     * @param id
+     * @return
+     * @throws ModelException
+     */
+    @GetMapping("/tag/list/{id}")
+    @Operation(summary = "获取数据可用标签")
+    public List<TagInfo> getTagList(
+            @Parameter(description = "ID", name = "id", required = true)
+            @PathVariable(value = "id") long id
+    ) throws ModelException {
+        return this.doGetObjectTagList(id);
+    }
+
+}

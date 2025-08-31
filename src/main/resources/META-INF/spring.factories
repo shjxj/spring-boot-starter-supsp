@@ -1,3 +1,1 @@
-# Auto Configure
-# For Spring Boot 2.x compatibility only
-# Spring Boot 3.x uses the imports file in META-INF/spring/
+org.springframework.context.ApplicationListener=com.supsp.springboot.core.config.ApplicationStartupListener

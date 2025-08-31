@@ -1,0 +1,24 @@
+package ${custom.packageActionServiceImpl};
+
+import ${custom.packageModel}.${entity}Model;
+import ${custom.packageActionService}.I${entity}ActionService;
+import jakarta.annotation.Resource;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.stereotype.Service;
+
+/**
+ * <p>
+ * #if(${table.comment} != "")$!{table.comment}#else${entity}#end Action 服务实现类
+ * </p>
+ *
+ * @author ${author}
+ * @since ${date}
+ */
+@Service
+@Slf4j
+public class ${entity}ActionServiceImpl implements I${entity}ActionService {
+
+    @Resource
+    private ${entity}Model ${tableCamel}Model;
+
+}

@@ -1,0 +1,960 @@
+package ${custom.packageModel};
+
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
+import com.supsp.supbackend.core.annotations.Cacher;
+import com.supsp.supbackend.core.annotations.DbModel;
+import com.supsp.supbackend.core.consts.Constants;
+import com.supsp.supbackend.core.base.*;
+import com.supsp.supbackend.core.enums.DataScope;
+import com.supsp.supbackend.core.enums.EnableStatus;
+import com.supsp.supbackend.core.exceptions.ExceptionCodes;
+import com.supsp.supbackend.core.enums.ShowStatus;
+import com.supsp.supbackend.core.exceptions.ModelException;
+import com.supsp.supbackend.core.model.IEntityParams;
+import com.supsp.supbackend.core.model.*;
+import com.supsp.supbackend.core.utils.CommonUtils;
+import com.supsp.supbackend.core.utils.StrUtils;
+import ${custom.packageEntity}.${entity};
+import ${package.Mapper}.${table.mapperName};
+import ${custom.packageParams}.${entity}.${entity}Request;
+import ${custom.packageParams}.${entity}.${entity}Params;
+import ${custom.packageParams}.${entity}.${entity}Filter;
+import ${package.ServiceImpl}.${table.serviceImplName};
+import jakarta.annotation.Nullable;
+import jakarta.validation.constraints.NotBlank;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
+
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+
+/**
+ * <p>
+ * #if(${table.comment} != "")$!{table.comment}#else${entity}#end MODEL
+ * </p>
+ *
+ * @author ${author}
+ * @since ${date}
+ */
+@Component
+@Slf4j
+@DbModel(scope = DataScope.False, tag = true)
+@Cacher(scope = DataScope.False)
+public class ${entity}Model
+        extends BaseEntityModel<${entity}ServiceImpl, ${entity}Mapper, ${entity}>
+        implements IEntityModel<${entity}ServiceImpl, ${entity}Mapper, ${entity}> {
+
+    /**
+     * 名称是否存在
+     * ${modelMethodDoc}
+     * @param name
+     * @param id
+     * @return
+     */
+    public long countByName(${modelMethodParams}
+            @NotBlank String name,
+            long id
+    ) {
+        QueryWrapper<${entity}> queryWrapper = this.getQueryWrapper();
+#if(${hasType})
+        if (hasColumn("${tableBaseName}_type")) {
+            queryWrapper.eq("${tableBaseName}_type", type);
+        }
+#end
+#if(${hasParent})
+        if (hasColumn("${tableBaseName}_pid")) {
+            queryWrapper.eq("${tableBaseName}_pid", pid);
+        }
+#end
+//        if (hasColumn("${tableBaseName}_name")) {
+//            queryWrapper.eq("${tableBaseName}_name", name);
+//        }
+            queryWrapper.eq("${tableBaseName}_name", name);
+        if (id > 0) {
+            queryWrapper.ne(${entity}.${tableUpperName}_ID, id);
+        }
+        return this.service.count(queryWrapper);
+    }
+
+    /**
+     * 名称是否存在
+     * ${modelMethodDoc}
+     * @param name
+     * @return
+     */
+    public long countByName( ${modelMethodParams}
+            @NotBlank String name
+    ) {
+        return this.countByName(${modelCallSelfParams}name, 0);
+    }
+
+    /**
+     * 编码是否存在
+     * ${modelMethodDoc}
+     * @param code
+     * @param id
+     * @return
+     */
+    public long countByCode( ${modelMethodParams}
+            @NotBlank String code,
+            long id
+    ) {
+        QueryWrapper<${entity}> queryWrapper = this.getQueryWrapper();
+#if(${hasType})
+        if (hasColumn("${tableBaseName}_type")) {
+            queryWrapper.eq("${tableBaseName}_type", type);
+        }
+#end
+#if(${hasParent})
+        if (hasColumn("${tableBaseName}_pid")) {
+            queryWrapper.eq("${tableBaseName}_pid", pid);
+        }
+#end
+//        if (hasColumn("${tableBaseName}_code")) {
+//            queryWrapper.eq("${tableBaseName}_code", code);
+//        }
+            queryWrapper.eq("${tableBaseName}_code", code);
+        if (id > 0) {
+            queryWrapper.ne(${entity}.${tableUpperName}_ID, id);
+        }
+        return this.service.count(queryWrapper);
+    }
+
+    /**
+     * 编码是否存在
+     * ${modelMethodDoc}
+     * @param code
+     * @return
+     */
+    public long countByCode( ${modelMethodParams}
+            @NotBlank String code
+    ) {
+        return this.countByCode(${modelCallSelfParams}code, 0);
+    }
+
+    /**
+     * 新建
+     * ${modelMethodDoc}
+     * @param data
+     * @return
+     * @throws ModelException
+     */
+    ${overrideStr}
+    @Transactional(rollbackFor = {ModelException.class})
+    public ActionResult create( ${modelMethodParams}
+                ${entity} data
+    ) throws ModelException {
+        if (data == null) {
+            throw new ModelException(ExceptionCodes.PARAMS_EMPTY);
+        }
+
+//        if (StrUtils.isBlank(data.get${tableCapitalizeName}Code())) {
+//            data.set${tableCapitalizeName}Code(CommonUtils.randomCode());
+//        }
+//
+//        if (!ValidateMatch.isBaseCode(data.get${tableCapitalizeName}Code())) {
+//            throw new ModelException(ValidateMatch.MSG_BASE_CODE, ExceptionCodes.PARAM_ERROR);
+//        }
+//
+//        if (this.countByCode(${modelCallSelfParams}data.get${tableCapitalizeName}Code()) > 0) {
+//            throw new ModelException("相同编码已存在", ExceptionCodes.DATA_ALREADY_EXISTS);
+//        }
+//
+//        if (this.countByName(${modelCallSelfParams}data.get${tableCapitalizeName}Name()) > 0) {
+//            throw new ModelException("名称已存在", ExceptionCodes.DATA_ALREADY_EXISTS);
+//        }
+//
+#if(${hasType})
+//        data.set${tableCapitalizeName}Type(type);
+#end
+#if(${hasParent})
+//        data.set${tableCapitalizeName}Pid(pid);
+#end
+        data.set${tableCapitalizeName}Id(this.applyID());
+
+//        if (!CommonUtils.isOrderSort(data.getOrderSort())) {
+//            data.setOrderSort(Constants.DEFAULT_ORDER);
+//        }
+//
+//        if (data.getEnableStatus() == null) {
+//            data.setEnableStatus(EnableStatus.enable);
+//        }
+//
+//        if (data.getShowStatus() == null) {
+//            data.setShowStatus(ShowStatus.show);
+//        }
+
+//        data.setIsSystem(null);
+
+        boolean result = this.service.save(data);
+        if (!result) {
+            return ActionResult.fail();
+        }
+
+        return ActionResult.success(data.get${tableCapitalizeName}Id(), data.getId());
+    }
+
+    /**
+     * 编辑
+     * ${modelMethodDoc}
+     * @param id
+     * @param data
+     * @return
+     * @throws ModelException
+     */
+    ${overrideStr}
+    @Transactional(rollbackFor = {ModelException.class})
+    public ActionResult edit( ${modelMethodParams}
+                long id,
+                ${entity} data
+    ) throws ModelException {
+        if (CommonUtils.isNotID(id)) {
+            throw new ModelException(ExceptionCodes.PARAM_ERROR);
+        }
+        if (data == null) {
+            throw new ModelException(ExceptionCodes.PARAMS_EMPTY);
+        }
+
+        QueryWrapper<${entity}> queryWrapper = this.getQueryWrapper();
+#if(${hasType})
+        if (hasColumn("${tableBaseName}_type")) {
+            queryWrapper.eq("${tableBaseName}_type", type);
+        }
+#end
+#if(${hasParent})
+       if (hasColumn("${tableBaseName}_pid")) {
+            queryWrapper.eq("${tableBaseName}_pid", pid);
+        }
+#end
+        queryWrapper.eq(${entity}.${tableUpperName}_ID, id);
+        ${entity} entity = this.service.getOne(queryWrapper);
+        if (entity == null) {
+            throw new ModelException(ExceptionCodes.DATA_NOT_EXIST);
+        }
+
+//        if (StrUtils.isBlank(data.get${tableCapitalizeName}Code())) {
+//            data.set${tableCapitalizeName}Code(CommonUtils.randomCode());
+//        }
+//
+//        if (!ValidateMatch.isBaseCode(data.get${tableCapitalizeName}Code())) {
+//            throw new ModelException(ValidateMatch.MSG_BASE_CODE, ExceptionCodes.PARAM_ERROR);
+//        }
+//
+//        if (this.countByCode(${modelCallSelfParams}data.get${tableCapitalizeName}Code(), id) > 0) {
+//            throw new ModelException("相同编码已存在", ExceptionCodes.DATA_ALREADY_EXISTS);
+//        }
+//
+//        if (this.countByName(${modelCallSelfParams}data.get${tableCapitalizeName}Name(), id) > 0) {
+//            throw new ModelException("名称已存在", ExceptionCodes.DATA_ALREADY_EXISTS);
+//        }
+#if(${hasType})
+//        data.set${tableCapitalizeName}Type(null);
+#end
+#if(${hasParent})
+//        data.set${tableCapitalizeName}Pid(null);
+#end
+//        data.set${tableCapitalizeName}Id(null);
+        data.set${tableCapitalizeName}Id(entity.get${tableCapitalizeName}Id());
+//        data.setIsSystem(null);
+
+//        if (!CommonUtils.isOrderSort(data.getOrderSort())) {
+//            data.setOrderSort(entity.getOrderSort());
+//        }
+//
+//        if (data.getEnableStatus() == null) {
+//            data.setEnableStatus(entity.getEnableStatus());
+//        }
+//
+//        if (data.getShowStatus() == null) {
+//            data.setShowStatus(entity.getShowStatus());
+//        }
+
+        UpdateWrapper<${entity}> updateWrapper = this.getUpdateWrapper();
+#if(${hasType})
+        if (hasColumn("${tableBaseName}_type")) {
+            updateWrapper.eq("${tableBaseName}_type", type);
+        }
+#end
+#if(${hasParent})
+        if (hasColumn("${tableBaseName}_pid")) {
+            updateWrapper.eq("${tableBaseName}_pid", pid);
+        }
+#end
+        updateWrapper.eq(${entity}.${tableUpperName}_ID, id);
+
+        if (!this.service.update(data, updateWrapper)) {
+            return ActionResult.fail();
+        }
+
+//        return ActionResult.success(true);
+        return ActionResult.success(entity.get${tableCapitalizeName}Id(), entity.getId());
+    }
+
+    /**
+     * 详情
+     *
+     * @param id
+     * @return
+     * @throws ModelException
+     */
+    @Cacher
+    @Override
+    public ${entity} detail(long id) throws ModelException {
+        if (CommonUtils.isNotID(id)) {
+            throw new ModelException(ExceptionCodes.PARAMS_EMPTY);
+        }
+
+        QueryWrapper<${entity}> queryWrapper = this.getQueryWrapper();
+        queryWrapper.eq(${entity}.${tableUpperName}_ID, id);
+        wrapperSelectByColumn(queryWrapper, this.getAllSelectColumnList());
+
+        return this.service.getOne(queryWrapper, false);
+    }
+
+    #if(${hasPrefix})
+    /**
+     * 详情
+     * ${modelMethodDoc}
+     * @param id
+     * @return
+     * @throws ModelException
+     */
+    @Cacher
+    public ${entity} detail( ${modelMethodParams}
+                long id
+    ) throws ModelException {
+        if (CommonUtils.isNotID(id)) {
+            throw new ModelException(ExceptionCodes.PARAMS_EMPTY);
+        }
+
+        QueryWrapper<${entity}> queryWrapper = this.getQueryWrapper();
+#if(${hasType})
+        if (hasColumn("${tableBaseName}_type")) {
+            queryWrapper.eq("${tableBaseName}_type", type);
+        }
+#end
+#if(${hasParent})
+        if (hasColumn("${tableBaseName}_pid")) {
+            queryWrapper.eq("${tableBaseName}_pid", pid);
+        }
+#end
+        queryWrapper.eq(${entity}.${tableUpperName}_ID, id);
+        wrapperSelectByColumn(queryWrapper, this.getAllSelectColumnList());
+
+        return this.service.getOne(queryWrapper, false);
+    }
+
+    #end
+
+    /**
+     * 关键字查询
+     *
+     * @param wrapper
+     * @param params
+     */
+    @Override
+    public void wrapperKeyword(QueryWrapper<${entity}> wrapper, @Nullable IEntityParams<${entity}> params) {
+        if (params == null || wrapper == null || StrUtils.isBlank(params.getKeyword())) {
+            return;
+        }
+    }
+
+    /**
+     * 查询 Wrapper
+     * ${modelMethodDoc}
+     * @param entityRequest
+     * @return
+     */
+    @Cacher
+    ${overrideStr}
+    public <R extends BaseEntityRequest<? extends BaseEntityParams<${entity}>, ? extends BaseEntityFilter<${entity}>, ${entity}>> QueryWrapper<${entity}> queryWrapper( ${modelMethodParams}
+                @Nullable R entityRequest
+    ) {
+        QueryWrapper<${entity}> queryWrapper = this.getQueryWrapper();
+#if(${hasType})
+        if (hasColumn("${tableBaseName}_type")) {
+            queryWrapper.eq("${tableBaseName}_type", type);
+        }
+#end
+#if(${hasParent})
+        if (hasColumn("${tableBaseName}_pid")) {
+            queryWrapper.eq("${tableBaseName}_pid", pid);
+        }
+#end
+        // params
+        ${entity}Params params = entityRequest != null ? ((${entity}Params) entityRequest.getParams()) : null;
+        if (params != null) {
+
+            this.wrapperParamsBase(queryWrapper, params);
+        }
+
+        // filter
+        ${entity}Filter filter = entityRequest != null ? ((${entity}Filter) entityRequest.getFilter()) : null;
+        if (filter != null) {
+            this.wrapperFilterBase(queryWrapper, filter);
+        }
+
+        // sorter
+        this.wrapperSorter(
+                queryWrapper,
+                entityRequest != null ? entityRequest.getSorter()  : null
+        );
+        if (this.hasColumn(Constants.COLUMNS_ORDER_SORT)) {
+            queryWrapper.orderByDesc(Constants.COLUMNS_ORDER_SORT);
+        }
+        if (this.hasColumn(Constants.COLUMNS_ID)) {
+            queryWrapper.orderByDesc(Constants.COLUMNS_ID);
+        }
+
+        return queryWrapper;
+    }
+
+    /**
+     * 分页列表
+     * ${modelMethodDoc}
+     * @param entityRequest
+     * @param <R>
+     * @return
+     * @throws ModelException
+     */
+    @Cacher
+    ${overrideStr}
+    public <R extends BaseEntityRequest<? extends BaseEntityParams<${entity}>, ? extends BaseEntityFilter<${entity}>, ${entity}>> PagerData<${entity}> queryList( ${modelMethodParams}
+                @Nullable R entityRequest
+    ) throws ModelException {
+        return queryList(this.queryWrapper(${modelCallSelfParams}entityRequest), entityRequest);
+    }
+
+    /**
+     * 查询列表
+     * ${modelMethodDoc}
+     * @param entityRequest
+     * @param <R>
+     * @return
+     * @throws ModelException
+     */
+    @Cacher
+    ${overrideStr}
+    public <R extends BaseEntityRequest<? extends BaseEntityParams<${entity}>, ? extends BaseEntityFilter<${entity}>, ${entity}>> List<${entity}> query( ${modelMethodParams}
+                @Nullable R entityRequest
+    ) throws ModelException {
+        return query(this.queryWrapper(${modelCallSelfParams}entityRequest), entityRequest);
+    }
+
+    /**
+     * 设置启用状态
+     * ${modelMethodDoc}
+     * @param id
+     * @param status
+     * @return
+     * @throws ModelException
+     */
+    ${overrideStr}
+    @Transactional(rollbackFor = {ModelException.class})
+    public ActionResult setEnableStatus( ${modelMethodParams}
+                long id,
+                EnableStatus status
+    ) throws ModelException {
+        if (CommonUtils.isNotID(id)) {
+            throw new ModelException(ExceptionCodes.PARAM_ERROR);
+        }
+
+        if (
+                StrUtils.isBlank(this.getDataIdColumn())
+                        || CommonUtils.isEmpty(this.getFieldsColumn())
+                        || !this.hasColumn(Constants.COLUMNS_ENABLE_STATUS)
+        ) {
+            return ActionResult.fail();
+        }
+
+        UpdateWrapper<${entity}> updateWrapper = this.getUpdateWrapper();
+        updateWrapper.eq(${entity}.${tableUpperName}_ID, id);
+#if(${hasType})
+        if (hasColumn("${tableBaseName}_type")) {
+            updateWrapper.eq("${tableBaseName}_type", type);
+        }
+#end
+#if(${hasParent})
+        if (hasColumn("${tableBaseName}_pid")) {
+            updateWrapper.eq("${tableBaseName}_pid", pid);
+        }
+#end
+
+        if (this.hasColumn(Constants.COLUMNS_IS_SYSTEM)) {
+            updateWrapper.eq(Constants.COLUMNS_IS_SYSTEM, Constants.SHORT_ZERO);
+        }
+
+        updateWrapper.set(Constants.COLUMNS_ENABLE_STATUS, status);
+
+        if (!this.service.update(updateWrapper)) {
+            return ActionResult.fail();
+        }
+
+        return ActionResult.success(true);
+    }
+
+    /**
+     * 批量设置启用状态
+     * ${modelMethodDoc}
+     * @param idList
+     * @param status
+     * @return
+     * @throws ModelException
+     */
+    ${overrideStr}
+    @Transactional(rollbackFor = {ModelException.class})
+    public ActionResult batchSetEnableStatus( ${modelMethodParams}
+                Set<Long> idList,
+                EnableStatus status
+    ) throws ModelException {
+        if (CommonUtils.isEmpty(idList)) {
+            throw new ModelException(ExceptionCodes.PARAMS_EMPTY);
+        }
+
+        if (
+                StrUtils.isBlank(this.getDataIdColumn())
+                        || CommonUtils.isEmpty(this.getFieldsColumn())
+                        || !this.hasColumn(Constants.COLUMNS_ENABLE_STATUS)
+        ) {
+            return ActionResult.fail();
+        }
+
+        UpdateWrapper<${entity}> updateWrapper = this.getUpdateWrapper();
+        updateWrapper.in(${entity}.${tableUpperName}_ID, idList);
+#if(${hasType})
+        if (hasColumn("${tableBaseName}_type")) {
+            updateWrapper.eq("${tableBaseName}_type", type);
+        }
+#end
+#if(${hasParent})
+        if (hasColumn("${tableBaseName}_pid")) {
+            updateWrapper.eq("${tableBaseName}_pid", pid);
+        }
+#end
+
+        if (this.hasColumn(Constants.COLUMNS_IS_SYSTEM)) {
+            updateWrapper.eq(Constants.COLUMNS_IS_SYSTEM, Constants.SHORT_ZERO);
+        }
+
+        updateWrapper.set(Constants.COLUMNS_ENABLE_STATUS, status);
+
+        if (!this.service.update(updateWrapper)) {
+            return ActionResult.fail();
+        }
+
+        return ActionResult.success(true);
+    }
+
+    /**
+     * 启用
+     * ${modelMethodDoc}
+     * @param id
+     * @return
+     * @throws ModelException
+     */
+    ${overrideStr}
+    @Transactional(rollbackFor = {ModelException.class})
+     public ActionResult enable( ${modelMethodParams}
+                long id
+    ) throws ModelException {
+        return this.setEnableStatus(${modelCallSelfParams}id, EnableStatus.enable);
+    }
+
+    /**
+     * 批量启用
+     * ${modelMethodDoc}
+     * @param idList
+     * @return
+     * @throws ModelException
+     */
+    ${overrideStr}
+    @Transactional(rollbackFor = {ModelException.class})
+     public ActionResult batchEnable( ${modelMethodParams}
+                Set<Long> idList
+    ) throws ModelException {
+        return this.batchSetEnableStatus(${modelCallSelfParams}idList, EnableStatus.enable);
+    }
+
+    /**
+     * 禁用
+     * ${modelMethodDoc}
+     * @param id
+     * @return
+     * @throws ModelException
+     */
+    ${overrideStr}
+    @Transactional(rollbackFor = {ModelException.class})
+                public ActionResult disable( ${modelMethodParams}
+                long id
+    ) throws ModelException {
+        return this.setEnableStatus(${modelCallSelfParams}id, EnableStatus.disable);
+    }
+
+    /**
+     * 批量禁用
+     * ${modelMethodDoc}
+     * @param idList
+     * @return
+     * @throws ModelException
+     */
+    ${overrideStr}
+    @Transactional(rollbackFor = {ModelException.class})
+    public ActionResult batchDisable( ${modelMethodParams}
+                Set<Long> idList
+    ) throws ModelException {
+        return this.batchSetEnableStatus(${modelCallSelfParams}idList, EnableStatus.disable);
+    }
+
+    /**
+     * 设置显示状态
+     * ${modelMethodDoc}
+     * @param id
+     * @param status
+     * @return
+     * @throws ModelException
+     */
+    ${overrideStr}
+    @Transactional(rollbackFor = {ModelException.class})
+    public ActionResult setShowStatus( ${modelMethodParams}
+                long id,
+                ShowStatus status
+    ) throws ModelException {
+        if (CommonUtils.isNotID(id)) {
+            throw new ModelException(ExceptionCodes.PARAM_ERROR);
+        }
+
+        if (
+                StrUtils.isBlank(this.getDataIdColumn())
+                        || CommonUtils.isEmpty(this.getFieldsColumn())
+                        || !this.hasColumn(Constants.COLUMNS_SHOW_STATUS)
+        ) {
+            return ActionResult.fail();
+        }
+
+        UpdateWrapper<${entity}> updateWrapper = this.getUpdateWrapper();
+        updateWrapper.eq(${entity}.${tableUpperName}_ID, id);
+#if(${hasType})
+        if (hasColumn("${tableBaseName}_type")) {
+            updateWrapper.eq("${tableBaseName}_type", type);
+        }
+#end
+#if(${hasParent})
+        if (hasColumn("${tableBaseName}_pid")) {
+            updateWrapper.eq("${tableBaseName}_pid", pid);
+        }
+#end
+
+//        if (this.hasColumn(Constants.COLUMNS_IS_SYSTEM)) {
+//            updateWrapper.eq(Constants.COLUMNS_IS_SYSTEM, Constants.SHORT_ZERO);
+//        }
+
+        updateWrapper.set(Constants.COLUMNS_SHOW_STATUS, status);
+
+        if (!this.service.update(updateWrapper)) {
+            return ActionResult.fail();
+        }
+
+        return ActionResult.success(true);
+    }
+
+    /**
+     * 批量设置显示状态
+     * ${modelMethodDoc}
+     * @param idList
+     * @param status
+     * @return
+     * @throws ModelException
+     */
+    ${overrideStr}
+    @Transactional(rollbackFor = {ModelException.class})
+    public ActionResult batchSetShowStatus( ${modelMethodParams}
+                Set<Long> idList,
+                ShowStatus status
+    ) throws ModelException {
+        if (CommonUtils.isEmpty(idList)) {
+            throw new ModelException(ExceptionCodes.PARAMS_EMPTY);
+        }
+
+        if (
+                StrUtils.isBlank(this.getDataIdColumn())
+                        || CommonUtils.isEmpty(this.getFieldsColumn())
+                        || !this.hasColumn(Constants.COLUMNS_SHOW_STATUS)
+        ) {
+            return ActionResult.fail();
+        }
+
+        UpdateWrapper<${entity}> updateWrapper = this.getUpdateWrapper();
+        updateWrapper.in(${entity}.${tableUpperName}_ID, idList);
+#if(${hasType})
+        if (hasColumn("${tableBaseName}_type")) {
+            updateWrapper.eq("${tableBaseName}_type", type);
+        }
+#end
+#if(${hasParent})
+        if (hasColumn("${tableBaseName}_pid")) {
+            updateWrapper.eq("${tableBaseName}_pid", pid);
+        }
+#end
+
+//        if (this.hasColumn(Constants.COLUMNS_IS_SYSTEM)) {
+//            updateWrapper.eq(Constants.COLUMNS_IS_SYSTEM, Constants.SHORT_ZERO);
+//        }
+
+        updateWrapper.set(Constants.COLUMNS_SHOW_STATUS, status);
+
+        if (!this.service.update(updateWrapper)) {
+            return ActionResult.fail();
+        }
+
+        return ActionResult.success(true);
+    }
+
+    /**
+     * 显示
+     * ${modelMethodDoc}
+     * @param id
+     * @return
+     * @throws ModelException
+     */
+    ${overrideStr}
+    @Transactional(rollbackFor = {ModelException.class})
+    public ActionResult show( ${modelMethodParams}
+                long id
+    ) throws ModelException {
+        return this.setShowStatus(${modelCallSelfParams}id, ShowStatus.show);
+    }
+
+    /**
+     * 批量显示
+     * ${modelMethodDoc}
+     * @param idList
+     * @return
+     * @throws ModelException
+     */
+    ${overrideStr}
+    @Transactional(rollbackFor = {ModelException.class})
+    public ActionResult batchShow( ${modelMethodParams}
+                Set<Long> idList
+    ) throws ModelException {
+        return this.batchSetShowStatus(${modelCallSelfParams}idList, ShowStatus.show);
+    }
+
+    /**
+     * 隐藏
+     * ${modelMethodDoc}
+     * @param id
+     * @return
+     * @throws ModelException
+     */
+    ${overrideStr}
+    @Transactional(rollbackFor = {ModelException.class})
+    public ActionResult hidden( ${modelMethodParams}
+                long id
+    ) throws ModelException {
+        return this.setShowStatus(${modelCallSelfParams}id, ShowStatus.hidden);
+    }
+
+    /**
+     * 批量隐藏
+     * ${modelMethodDoc}
+     * @param idList
+     * @return
+     * @throws ModelException
+     */
+    ${overrideStr}
+    @Transactional(rollbackFor = {ModelException.class})
+    public ActionResult batchHidden( ${modelMethodParams}
+                Set<Long> idList
+    ) throws ModelException {
+        return this.batchSetShowStatus(${modelCallSelfParams}idList, ShowStatus.hidden);
+    }
+
+    /**
+     * 删除
+     * ${modelMethodDoc}
+     * @param id
+     * @return
+     * @throws ModelException
+     */
+    ${overrideStr}
+    @Transactional(rollbackFor = {ModelException.class})
+    public ActionResult delete( ${modelMethodParams}
+                long id
+    ) throws ModelException {
+        if (CommonUtils.isNotID(id)) {
+            throw new ModelException(ExceptionCodes.PARAM_ERROR);
+        }
+
+        QueryWrapper<${entity}> queryWrapper = this.getQueryWrapper();
+        queryWrapper.eq(${entity}.${tableUpperName}_ID, id);
+#if(${hasType})
+        if (hasColumn("${tableBaseName}_type")) {
+            queryWrapper.eq("${tableBaseName}_type", type);
+        }
+#end
+#if(${hasParent})
+        if (hasColumn("${tableBaseName}_pid")) {
+            queryWrapper.eq("${tableBaseName}_pid", pid);
+        }
+#end
+
+        if (this.hasColumn(Constants.COLUMNS_IS_SYSTEM)) {
+            queryWrapper.eq(Constants.COLUMNS_IS_SYSTEM, Constants.SHORT_ZERO);
+        }
+
+        this.service.remove(queryWrapper);
+
+        return ActionResult.success(true);
+    }
+
+    /**
+     * 批量删除
+     * ${modelMethodDoc}
+     * @param idList
+     * @return
+     * @throws ModelException
+     */
+    ${overrideStr}
+    @Transactional(rollbackFor = {ModelException.class})
+    public ActionResult batchDelete( ${modelMethodParams}
+                Set<Long> idList
+    ) throws ModelException {
+        if (CommonUtils.isEmpty(idList)) {
+            throw new ModelException(ExceptionCodes.PARAMS_EMPTY);
+        }
+
+        QueryWrapper<${entity}> queryWrapper = this.getQueryWrapper();
+        queryWrapper.in(${entity}.${tableUpperName}_ID, idList);
+#if(${hasType})
+        if (hasColumn("${tableBaseName}_type")) {
+            queryWrapper.eq("${tableBaseName}_type", type);
+        }
+#end
+#if(${hasParent})
+        if (hasColumn("${tableBaseName}_pid")) {
+            queryWrapper.eq("${tableBaseName}_pid", pid);
+        }
+#end
+
+        if (this.hasColumn(Constants.COLUMNS_IS_SYSTEM)) {
+            queryWrapper.eq(Constants.COLUMNS_IS_SYSTEM, Constants.SHORT_ZERO);
+        }
+
+        this.service.remove(queryWrapper);
+
+        return ActionResult.success(true);
+    }
+
+    /**
+     * 设置排序权重
+     * ${modelMethodDoc}
+     * @param id
+     * @param order
+     * @return
+     * @throws ModelException
+     */
+    ${overrideStr}
+    @Transactional(rollbackFor = {ModelException.class})
+    public ActionResult setOrder( ${modelMethodParams}
+                long id,
+                int order
+    ) throws ModelException {
+        if (CommonUtils.isNotID(id)) {
+            throw new ModelException(ExceptionCodes.PARAM_ERROR);
+        }
+
+        if (order < 0) {
+            throw new ModelException(ExceptionCodes.PARAM_ERROR);
+        }
+
+        if (
+                StrUtils.isBlank(this.getDataIdColumn())
+                        || CommonUtils.isEmpty(this.getFieldsColumn())
+                        || !this.hasColumn(Constants.COLUMNS_ORDER_SORT)
+        ) {
+            return ActionResult.fail();
+        }
+
+        UpdateWrapper<${entity}> updateWrapper = this.getUpdateWrapper();
+        updateWrapper.eq(${entity}.${tableUpperName}_ID, id);
+#if(${hasType})
+        if (hasColumn("${tableBaseName}_type")) {
+            updateWrapper.eq("${tableBaseName}_type", type);
+        }
+#end
+#if(${hasParent})
+        if (hasColumn("${tableBaseName}_pid")) {
+            updateWrapper.eq("${tableBaseName}_pid", pid);
+        }
+#end
+        updateWrapper.set(Constants.COLUMNS_ORDER_SORT, order);
+
+        if (!this.service.update(updateWrapper)) {
+            return ActionResult.fail();
+        }
+
+        return ActionResult.success(true);
+    }
+
+    /**
+     * 批量设置排序权重
+     * ${modelMethodDoc}
+     * @param data
+     * @return
+     * @throws ModelException
+     */
+    ${overrideStr}
+    @Transactional(rollbackFor = {ModelException.class})
+    public ActionResult batchSetOrder( ${modelMethodParams}
+                HashMap<Long, Integer> data
+    ) throws ModelException {
+        if (CommonUtils.isEmpty(data)) {
+            throw new ModelException(ExceptionCodes.PARAMS_EMPTY);
+        }
+
+        if (
+                StrUtils.isBlank(this.getDataIdColumn())
+                        || CommonUtils.isEmpty(this.getFieldsColumn())
+                        || !this.hasColumn(Constants.COLUMNS_ORDER_SORT)
+        ) {
+            return ActionResult.fail();
+        }
+
+        for (Map.Entry<Long, Integer> entry : data.entrySet()) {
+            if (
+                    entry.getKey() == null
+                            || entry.getKey().compareTo(0L) < 1
+                            || entry.getValue() == null
+                            || entry.getValue() < 0
+            ) {
+                continue;
+            }
+
+            UpdateWrapper<${entity}> updateWrapper = this.getUpdateWrapper();
+            updateWrapper.eq(${entity}.${tableUpperName}_ID, entry.getKey());
+#if(${hasType})
+            if (hasColumn("${tableBaseName}_type")) {
+                updateWrapper.eq("${tableBaseName}_type", type);
+            }
+#end
+#if(${hasParent})
+            if (hasColumn("${tableBaseName}_pid")) {
+                updateWrapper.eq("${tableBaseName}_pid", pid);
+            }
+#end
+
+            updateWrapper.set(Constants.COLUMNS_ORDER_SORT, entry.getValue());
+
+            if (!this.service.update(updateWrapper)) {
+                throw new ModelException(ExceptionCodes.SYSTEM_ERROR);
+            }
+        }
+
+        return ActionResult.success(true);
+    }
+
+}

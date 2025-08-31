@@ -1,0 +1,31 @@
+package ${custom.packageUtils};
+
+import ${custom.packageEntity}.${entity};
+import ${custom.packageModel}.${entity}Model;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.stereotype.Component;
+import com.supsp.supbackend.core.exceptions.ModelException;
+
+/**
+ * <p>
+ * #if(${table.comment} != "")$!{table.comment}#else${entity}#end Utils
+ * </p>
+ *
+ * @author ${author}
+ * @since ${date}
+ */
+@Component
+@Slf4j
+public class ${entity}Utils {
+
+    private static ${entity}Model ${tableCamel}Model;
+
+    public ${entity}Utils(${entity}Model ${tableCamel}Model) {
+        ${entity}Utils.${tableCamel}Model = ${tableCamel}Model;
+    }
+
+    public static ${entity} detail(long id) throws ModelException {
+        return ${tableCamel}Model.detail(id);
+    }
+
+}

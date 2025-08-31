@@ -1,0 +1,89 @@
+package ${custom.packageVo};
+
+#foreach($pkg in ${table.importPackages})
+import ${pkg};
+#end
+import com.supsp.supbackend.core.annotations.DbVo;
+import com.supsp.supbackend.core.annotations.DbVoField;
+import com.supsp.supbackend.core.model.BaseEntityVo;
+import com.supsp.supbackend.core.enums.ShowStatus;
+import com.supsp.supbackend.core.model.IEntityVo;
+import ${custom.packageEntity}.${entity};
+import io.swagger.v3.oas.annotations.media.Schema;
+import lombok.Data;
+import lombok.Builder;
+import lombok.EqualsAndHashCode;
+import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
+import lombok.experimental.Accessors;
+import lombok.extern.slf4j.Slf4j;
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
+import java.io.Serial;
+
+/**
+ * <p>
+ * #if(${table.comment} != "")$!{table.comment}#else${entity}#end VO
+ * </p>
+ *
+ * @author ${author}
+ * @since ${date}
+ */
+@EqualsAndHashCode(callSuper = true)
+@Data
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
+@Accessors(chain = true)
+@Slf4j
+@DbVo
+@Schema(name = "${entity}Vo", description = "#if(${table.comment} != "")$!{table.comment}#else${entity}#end Vo")
+public class ${entity}Vo
+        extends BaseEntityVo<${entity}> implements IEntityVo<${entity}> {
+
+    @Serial
+    private static final long serialVersionUID = ${serial.VoVersionUID}L;
+
+    /**
+     * unix 时间戳  [无需前端设置]
+     */
+    @Schema(title = "unix 时间戳", description = "无需前端设置")
+    @DbVoField(exists = false)
+    @JsonIgnore
+    private Long currentTimestamp;
+
+## ----------  BEGIN 字段循环遍历  ----------
+#foreach($field in ${table.fields})
+#if(!$updateColumns.contains(${field.annotationColumnName}) && !$ignoreVoColumns.contains(${field.annotationColumnName}))
+
+#if("$!field.comment" != "")
+#if(${springdoc})
+    @Schema(title = "#if(${field.comment} != "")${field.comment}#else${field.propertyName}#end"#if($updateColumns.contains(${field.annotationColumnName})), description = "无需前端设置"#end)
+#elseif(${swagger})
+    @ApiModelProperty("${field.comment}")
+#else
+    /**
+     * ${field.comment}
+     */
+#end
+#end
+    @DbVoField(property = "${field.propertyName}", column = "${field.annotationColumnName}")
+#if($dateTimeProperty.contains(${field.propertyType}))
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
+#end
+    private ${field.propertyType} ${field.propertyName};
+#end
+#end
+## ----------  END 字段循环遍历  ----------
+## --foreach end---
+
+###if(${entityColumnConstant})
+###foreach($field in ${table.fields})
+###if(!$updateColumns.contains(${field.annotationColumnName}) && !$ignoreVoColumns.contains(${field.annotationColumnName}))
+##
+##    public static final String ${field.name.toUpperCase()} = "${field.name}";
+###end
+###end
+###end
+}
