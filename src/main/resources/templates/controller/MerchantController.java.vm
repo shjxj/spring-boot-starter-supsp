@@ -2,8 +2,8 @@ package ${custom.packageCtrlMerchant};
 
 import ${custom.packageParams}.${entity}.${entity}Request;
 import ${custom.packageEntity}.${entity};
-import ${package.Mapper}.${table.mapperName};
-import ${package.ServiceImpl}.${table.serviceImplName};
+import ${custom.projectRootPkg}.model.${custom.model}.mapper.${table.mapperName};
+import ${custom.projectRootPkg}.model.${custom.model}.service.impl.${table.serviceImplName};
 import ${custom.packageModel}.${entity}Model;
 import ${custom.packageBaseController}.${entity}BaseController;
 import io.swagger.v3.oas.annotations.tags.Tag;

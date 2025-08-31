@@ -1,8 +1,8 @@
 package ${custom.packageParams}.${entity};
 
-import com.supsp.supbackend.core.annotations.DbFilter;
-import com.supsp.supbackend.core.model.BaseEntityFilter;
-import com.supsp.supbackend.core.model.IEntityFilter;
+import com.supsp.springboot.core.annotations.DbFilter;
+import com.supsp.springboot.core.model.BaseEntityFilter;
+import com.supsp.springboot.core.model.IEntityFilter;
 import ${custom.packageEntity}.${entity};
 import lombok.Builder;
 import lombok.Data;

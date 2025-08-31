@@ -3,11 +3,11 @@ package ${custom.packageVo};
 #foreach($pkg in ${table.importPackages})
 import ${pkg};
 #end
-import com.supsp.supbackend.core.annotations.DbVo;
-import com.supsp.supbackend.core.annotations.DbVoField;
-import com.supsp.supbackend.core.model.BaseEntityVo;
-import com.supsp.supbackend.core.enums.ShowStatus;
-import com.supsp.supbackend.core.model.IEntityVo;
+import com.supsp.springboot.core.annotations.DbVo;
+import com.supsp.springboot.core.annotations.DbVoField;
+import com.supsp.springboot.core.model.BaseEntityVo;
+import com.supsp.springboot.core.enums.ShowStatus;
+import com.supsp.springboot.core.model.IEntityVo;
 import ${custom.packageEntity}.${entity};
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;

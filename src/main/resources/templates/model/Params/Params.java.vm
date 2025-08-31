@@ -3,11 +3,11 @@ package ${custom.packageParams}.${entity};
 #foreach($pkg in ${table.importPackages})
 import ${pkg};
 #end
-import com.supsp.supbackend.core.annotations.DbParamField;
-import com.supsp.supbackend.core.annotations.DbParams;
-import com.supsp.supbackend.core.model.BaseEntityParams;
-import com.supsp.supbackend.core.enums.QueryType;
-import com.supsp.supbackend.core.model.IEntityParams;
+import com.supsp.springboot.core.annotations.DbParamField;
+import com.supsp.springboot.core.annotations.DbParams;
+import com.supsp.springboot.core.model.BaseEntityParams;
+import com.supsp.springboot.core.enums.QueryType;
+import com.supsp.springboot.core.model.IEntityParams;
 import ${custom.packageEntity}.${entity};
 import lombok.Data;
 import lombok.experimental.SuperBuilder;

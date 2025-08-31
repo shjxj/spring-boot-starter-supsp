@@ -1,9 +1,9 @@
 package ${custom.packageServiceImpl};
 
 import ${custom.packageEntity}.${entity};
-import ${package.Mapper}.${table.mapperName};
+import ${custom.projectRootPkg}.model.${custom.model}.mapper.${table.mapperName};
 #if(${table.serviceInterface})
-import ${package.Service}.${table.serviceName};
+import ${custom.projectRootPkg}.model.${custom.model}.service.${table.serviceName};
 #end
 import ${superServiceImplClassPackage};
 import org.springframework.stereotype.Service;

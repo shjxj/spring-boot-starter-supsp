@@ -24,23 +24,15 @@ import java.util.*;
 public class GeneratorUtil {
     private final static Logger log = LoggerFactory.getLogger(GeneratorUtil.class);
 
-    /**
-     * export MYSQL_HOST="127.0.0.1"
-     * export MYSQL_PORT="3306"
-     * export MYSQL_USER="***"
-     * export MYSQL_PWD="***"
-     */
-
-//    private final static String DB_HOST = System.getenv("MYSQL_HOST");
-//    private final static String DB_PORT = System.getenv("MYSQL_PORT");
-//    private final static String DB_USER = System.getenv("MYSQL_USER");
-//    private final static String DB_PWD = System.getenv("MYSQL_PWD");
-//    private final static String DB_NAME = "sup_shop";
-
     private final static String AUTHOR = "com.supsp";
-    private final static String PKG_PARENT = "com.supsp";
-    private final static String PARENT_MODULE = System.getProperty("project");
+
+    private final static String PKG_PARENT = System.getProperty("pkgParent");
+    private final static String PARENT_MODULE = System.getProperty("parentModule");
     private final static String ROOT_PKG = PKG_PARENT + "." + PARENT_MODULE;
+
+    private final static String PROJECT_PKG_PARENT = System.getProperty("projectPkgParent");
+    private final static String PROJECT_PARENT_MODULE = System.getProperty("projectParentModule");
+    private final static String PROJECT_ROOT_PKG = PROJECT_PKG_PARENT + "." + PROJECT_PARENT_MODULE;
 
     private final static String ROOT_CORE_PKG = ROOT_PKG + ".core";
 
@@ -150,8 +142,6 @@ public class GeneratorUtil {
                         merchantControllerDir: {}
                         consumerControllerDir: {}
                         apiControllerDir: {}
-                        ============================================
-                        ■ resourcesDir
                         """,
                 projectPath,
                 srcDir,
@@ -320,21 +310,21 @@ public class GeneratorUtil {
         String modelVoPkg = moduleModelPkg + ".vo";
         String modelUtilsPkg = moduleModelPkg + ".utils";
 
-        String packageModelBase = ROOT_PKG + "." + moduleModelPkg;
+        String packageModelBase = PROJECT_ROOT_PKG + "." + moduleModelPkg;
 
-        String packageBaseController = ROOT_PKG + "." + modelBaseControllerPkg;
-        String packageEntity = ROOT_PKG + "." + modelEntityPkg;
-        String packageMapper = ROOT_PKG + "." + modelMapperPkg;
-        String packageService = ROOT_PKG + "." + modelServicePkg;
-        String packageServiceImpl = ROOT_PKG + "." + modelServiceImplPkg;
+        String packageBaseController = PROJECT_ROOT_PKG + "." + modelBaseControllerPkg;
+        String packageEntity = PROJECT_ROOT_PKG + "." + modelEntityPkg;
+        String packageMapper = PROJECT_ROOT_PKG + "." + modelMapperPkg;
+        String packageService = PROJECT_ROOT_PKG + "." + modelServicePkg;
+        String packageServiceImpl = PROJECT_ROOT_PKG + "." + modelServiceImplPkg;
 
-        String packageActionService = ROOT_PKG + "." + modelActionServicePkg;
-        String packageActionServiceImpl = ROOT_PKG + "." + modelActionServiceImplPkg;
+        String packageActionService = PROJECT_ROOT_PKG + "." + modelActionServicePkg;
+        String packageActionServiceImpl = PROJECT_ROOT_PKG + "." + modelActionServiceImplPkg;
 
-        String packageModel = ROOT_PKG + "." + modelModelPkg;
-        String packageParams = ROOT_PKG + "." + modelParamsPkg;
-        String packageVo = ROOT_PKG + "." + modelVoPkg;
-        String packageUtils = ROOT_PKG + "." + modelUtilsPkg;
+        String packageModel = PROJECT_ROOT_PKG + "." + modelModelPkg;
+        String packageParams = PROJECT_ROOT_PKG + "." + modelParamsPkg;
+        String packageVo = PROJECT_ROOT_PKG + "." + modelVoPkg;
+        String packageUtils = PROJECT_ROOT_PKG + "." + modelUtilsPkg;
 
         String baseControllerPkg = "controller";
         String controllerAdminPkg = baseControllerPkg + ".admin";
@@ -349,11 +339,11 @@ public class GeneratorUtil {
         String moduleCtrlConsumerPkg = controllerConsumerPkg + "." + model;
         String moduleCtrlApiPkg = controllerApiPkg + "." + model;
 
-        String packageCtrlAdmin = ROOT_PKG + "." + moduleCtrlAdminPkg;
-        String packageCtrlTenant = ROOT_PKG + "." + moduleCtrlTenantPkg;
-        String packageCtrlMerchant = ROOT_PKG + "." + moduleCtrlMerchantPkg;
-        String packageCtrlConsumer = ROOT_PKG + "." + moduleCtrlConsumerPkg;
-        String packageCtrlApi = ROOT_PKG + "." + moduleCtrlApiPkg;
+        String packageCtrlAdmin = PROJECT_ROOT_PKG + "." + moduleCtrlAdminPkg;
+        String packageCtrlTenant = PROJECT_ROOT_PKG + "." + moduleCtrlTenantPkg;
+        String packageCtrlMerchant = PROJECT_ROOT_PKG + "." + moduleCtrlMerchantPkg;
+        String packageCtrlConsumer = PROJECT_ROOT_PKG + "." + moduleCtrlConsumerPkg;
+        String packageCtrlApi = PROJECT_ROOT_PKG + "." + moduleCtrlApiPkg;
 
         log.info(
                 """
@@ -660,10 +650,20 @@ public class GeneratorUtil {
                 """
                         \n■■■■■
                         pathInfo: {}
+                        PKG_PARENT: {}
                         PARENT_MODULE: {}
+                        ROOT_PKG: {}
+                        PROJECT_PKG_PARENT: {}
+                        PROJECT_PARENT_MODULE: {}
+                        PROJECT_ROOT_PKG: {}
                         """,
                 pathInfo,
-                PARENT_MODULE
+                PKG_PARENT,
+                PARENT_MODULE,
+                ROOT_PKG,
+                PROJECT_PKG_PARENT,
+                PROJECT_PARENT_MODULE,
+                PROJECT_ROOT_PKG
         );
 
         FastAutoGenerator.create(dbUrl, dbUser, dbPwd).globalConfig(
@@ -922,6 +922,12 @@ public class GeneratorUtil {
 
                     custom.put("model", model);
                     custom.put("pkgParent", PKG_PARENT);
+                    custom.put("parentModule", PARENT_MODULE);
+                    custom.put("rootPkg", ROOT_PKG);
+
+                    custom.put("projectPkgParent", PROJECT_PKG_PARENT);
+                    custom.put("projectParentModule", PROJECT_PARENT_MODULE);
+                    custom.put("projectRootPkg", PROJECT_ROOT_PKG);
 
                     custom.put("modelRealDir", modelRealDir);
                     custom.put("modelControllerDir", modelControllerDir);

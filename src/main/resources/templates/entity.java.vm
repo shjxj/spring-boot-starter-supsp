@@ -4,10 +4,10 @@ package ${custom.packageEntity};
 import ${pkg};
 #end
 #if(${springdoc})
-import com.supsp.supbackend.core.annotations.DBEntity;
-import com.supsp.supbackend.core.annotations.DataId;
-import com.supsp.supbackend.core.annotations.EntityColumn;
-import com.supsp.supbackend.core.annotations.SensitiveData;
+import com.supsp.springboot.core.annotations.DBEntity;
+import com.supsp.springboot.core.annotations.DataId;
+import com.supsp.springboot.core.annotations.EntityColumn;
+import com.supsp.springboot.core.annotations.SensitiveData;
 import io.swagger.v3.oas.annotations.media.Schema;
 #elseif(${swagger})
 import io.swagger.annotations.ApiModel;
@@ -23,7 +23,7 @@ import lombok.NoArgsConstructor;
 import lombok.experimental.Accessors;
 #end
 import com.baomidou.mybatisplus.annotation.*;
-import com.supsp.supbackend.core.config.ValidGroup;
+import com.supsp.springboot.core.config.ValidGroup;
 import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.Min;
 import com.fasterxml.jackson.annotation.JsonFormat;
