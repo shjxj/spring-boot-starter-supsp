@@ -1,6 +1,7 @@
 package com.supsp.springboot.starter;
 
 import com.supsp.springboot.core.config.CoreProperties;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
@@ -9,8 +10,6 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
 
 import java.util.concurrent.Executor;
-
-import org.springframework.beans.factory.annotation.Qualifier;
 
 /**
  * Auto-configuration for Supsp Service

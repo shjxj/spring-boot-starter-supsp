@@ -7,7 +7,6 @@ import com.supsp.springboot.core.vo.auth.AuthMember;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jws;
 import io.jsonwebtoken.Jwts;
-import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
 import jakarta.annotation.Resource;
 import jakarta.servlet.http.HttpServletRequest;

@@ -5,7 +5,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.codec.binary.Base64;
 import org.apache.commons.codec.digest.DigestUtils;
 import org.springframework.stereotype.Component;
-import jakarta.annotation.Resource;
 
 import javax.crypto.Cipher;
 import javax.crypto.spec.IvParameterSpec;
