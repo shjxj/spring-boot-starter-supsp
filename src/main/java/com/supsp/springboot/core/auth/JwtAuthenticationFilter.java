@@ -1,11 +1,8 @@
 package com.supsp.springboot.core.auth;
 
-import com.supsp.springboot.core.config.CoreProperties;
-import com.supsp.springboot.core.enums.AccountType;
 import com.supsp.springboot.core.enums.AuthMemberType;
 import com.supsp.springboot.core.helper.AuthCommon;
 import com.supsp.springboot.core.utils.JwtUtil;
-import com.supsp.springboot.core.utils.StrUtils;
 import com.supsp.springboot.core.vo.auth.AuthAccount;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
