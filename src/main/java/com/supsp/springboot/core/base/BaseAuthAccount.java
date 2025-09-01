@@ -4,10 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import com.supsp.springboot.core.annotations.SensitiveData;
 import com.supsp.springboot.core.annotations.SensitiveField;
-import com.supsp.springboot.core.enums.AccountType;
-import com.supsp.springboot.core.enums.AuthMemberType;
-import com.supsp.springboot.core.enums.OrgAuthority;
-import com.supsp.springboot.core.enums.SensitiveType;
+import com.supsp.springboot.core.enums.*;
 import com.supsp.springboot.core.interfaces.IAuthAccount;
 import com.supsp.springboot.core.vo.auth.AccountOrg;
 import com.supsp.springboot.core.vo.auth.AccountPost;
@@ -21,6 +18,7 @@ import lombok.experimental.SuperBuilder;
 
 import java.io.Serial;
 import java.time.LocalDateTime;
+import java.util.Date;
 import java.util.List;
 
 @Data
@@ -38,13 +36,20 @@ public abstract class BaseAuthAccount implements IAuthAccount {
     @Serial
     private static final long serialVersionUID = -2504578744815480393L;
 
+    @Schema(title = "过期时间")
+    @JsonIgnore
+    protected Date issuedAt;
+
+    @Schema(title = "过期时间")
+    @JsonIgnore
+    protected Date expiresAt;
+
     @Schema(title = "request sid")
     @JsonIgnore
     @SensitiveField(type = SensitiveType.SID)
     protected String sid;
 
     @Schema(title = "request ip")
-    // @JsonIgnore
     @SensitiveField(type = SensitiveType.IPV4)
     protected String ip;
 
@@ -52,6 +57,9 @@ public abstract class BaseAuthAccount implements IAuthAccount {
     @JsonIgnore
     @SensitiveField(type = SensitiveType.TOKEN)
     protected String token;
+
+    @Schema(title = "账号类型")
+    private LoginType loginType = LoginType.account;
 
     @Schema(title = "用户ID")
     protected Long id;
@@ -79,11 +87,8 @@ public abstract class BaseAuthAccount implements IAuthAccount {
 
     @Schema(title = "用户认证")
     @SensitiveField(type = SensitiveType.PWD_VALUE)
-    protected String auth;
-
-    @Schema(title = "过期时间")
     @JsonIgnore
-    protected LocalDateTime expiresAt;
+    protected String auth;
 
     @Schema(title = "权限列表")
     protected List<String> permissions;
@@ -91,17 +96,8 @@ public abstract class BaseAuthAccount implements IAuthAccount {
     @Schema(title = "角色列表")
     protected List<String> roles;
 
-    @Schema(title = "所属部门类型")
-    protected Long orgChildId;
-
-    @Schema(title = "所属部门类型")
-    protected Long departmentId;
-
     @Schema(title = "组织ID")
     protected Long orgId;
-
-    @Schema(title = "用户组织ID")
-    protected Long memberOrgId;
 
     @Schema(title = "门店ID")
     protected Long storeId;
@@ -126,9 +122,6 @@ public abstract class BaseAuthAccount implements IAuthAccount {
 
     @Schema(title = "社区")
     protected Long community;
-
-    @Schema(title = "组织权限类型 none:未设置; global: 全局; region: 地区;")
-    protected OrgAuthority orgAuthority;
 
     @Schema(title = "一级类型编码")
     protected String kindCodeFirst;
@@ -255,25 +248,4 @@ public abstract class BaseAuthAccount implements IAuthAccount {
         this.tenant = tenant;
     }
 
-
-
-    @Override
-    public Long getOrgChildId() {
-        return orgChildId;
-    }
-
-    @Override
-    public void setOrgChildId(Long orgChildId) {
-        this.orgChildId = orgChildId;
-    }
-
-    @Override
-    public Long getDepartmentId() {
-        return departmentId;
-    }
-
-    @Override
-    public void setDepartmentId(Long departmentId) {
-        this.departmentId = departmentId;
-    }
 }

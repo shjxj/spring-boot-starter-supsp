@@ -3,6 +3,7 @@ package com.supsp.springboot.core.utils;
 import com.supsp.springboot.core.config.CoreProperties;
 import com.supsp.springboot.core.enums.AccountType;
 import com.supsp.springboot.core.enums.AuthMemberType;
+import com.supsp.springboot.core.enums.LoginType;
 import com.supsp.springboot.core.vo.auth.AuthMember;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jws;
@@ -37,9 +38,9 @@ public class JwtUtil {
     public void init() {
         // 确保密钥至少有32个字符（256位）以满足JWT安全要求
         String secret = coreProperties.getSecret();
-        if (secret.length() < 32) {
+        if (StrUtils.isBlank(secret) || secret.length() < 32) {
             // 如果密钥太短，使用一个默认的安全密钥
-            secret = "supsp_default_secret_key_for_jwt_authentication_2025";
+            secret = "supsp_default_secret_key_for_jwt_authentication_20250901";
         }
         // 将密钥转换为Base64编码并创建HMAC-SHA256密钥
         this.key = Keys.hmacShaKeyFor(secret.getBytes());
@@ -62,6 +63,8 @@ public class JwtUtil {
                 // 设置JWT的subject为userId
                 .subject(member.getMemberId().toString())
                 // 设置额外的claim（如用户名）
+                .claim("loginType", member.getLoginType())
+                .claim("memberType", member.getMemberType())
                 .claim("loginAccount", member.getLoginAccount())
                 .claim("accountType", member.getAccountType())
                 .claim("loginPwd", CryptUtils.encrypt(member.getLoginPwd()))
@@ -119,12 +122,28 @@ public class JwtUtil {
         return AccountType.getByCode(accountType);
     }
 
-    public String extractLoginPwd(String token) {
-        String pwd = extractClaim(token, claims -> claims.get("loginPwd", String.class));
-        if (StrUtils.isBlank(pwd)) {
+    public LoginType extractLoginType(String token) {
+        String loginType = extractClaim(token, claims -> claims.get("loginType", String.class));
+        if (StrUtils.isBlank(loginType)) {
             return null;
         }
-        return CryptUtils.decrypt(pwd);
+        return LoginType.getByCode(loginType);
+    }
+
+    public AuthMemberType extractAuthMemberType(String token) {
+        String memberType = extractClaim(token, claims -> claims.get("memberType", String.class));
+        if (StrUtils.isBlank(memberType)) {
+            return null;
+        }
+        return AuthMemberType.getByCode(memberType);
+    }
+
+    public String extractLoginPwd(String token) {
+        return extractClaim(token, claims -> claims.get("loginPwd", String.class));
+//        if (StrUtils.isBlank(pwd)) {
+//            return null;
+//        }
+//        return CryptUtils.decrypt(pwd);
     }
 
     /**
@@ -148,9 +167,8 @@ public class JwtUtil {
      * @param token JWT令牌
      * @return JWT中的所有claims
      */
-    private Claims extractAllClaims(String token) {
+    public Claims extractAllClaims(String token) {
         try {
-
             Jws<Claims> claims = Jwts.parser()
                     .verifyWith(key)
                     .build()
@@ -160,6 +178,22 @@ public class JwtUtil {
             //
         }
         return null;
+    }
+
+    public Date getIssuedAt(String token){
+        Claims claims = extractAllClaims(token);
+        if(claims == null){
+            return null;
+        }
+        return claims.getIssuedAt();
+    }
+
+    public Date getExpiration(String token){
+        Claims claims = extractAllClaims(token);
+        if(claims == null){
+            return null;
+        }
+        return claims.getExpiration();
     }
 
     /**

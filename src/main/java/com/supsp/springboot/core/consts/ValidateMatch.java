@@ -259,29 +259,4 @@ public class ValidateMatch {
         return isMatch(PATTERN_CAR, str);
     }
 
-
-    /**
-     * 正则：单选题
-     */
-    public static final String REGEX_QUESTION_SINGLE_CHOICE = "^[A-Za-z]{1}$";
-    public static final Pattern PATTERN_QUESTION_SINGLE_CHOICE = Pattern.compile(REGEX_QUESTION_SINGLE_CHOICE);
-    public static final String MSG_QUESTION_SINGLE_CHOICE = "单选题答案仅为一个英文字母";
-
-    public static boolean isQuestionSingleChoice(String code) {
-        if (StrUtils.isBlank(code)) {
-            return false;
-        }
-        return PATTERN_QUESTION_SINGLE_CHOICE.matcher(code).matches();
-    }
-
-    public static final String REGEX_QUESTION_MULTIPLE_CHOICE = "^[A-Za-z]{1,10}$";
-    public static final Pattern PATTERN_QUESTION_MULTIPLE_CHOICE = Pattern.compile(REGEX_QUESTION_MULTIPLE_CHOICE);
-    public static final String MSG_QUESTION_MULTIPLE_CHOICE = "多选题答案仅为英文字母";
-
-    public static boolean isQuestionMultipleChoice(String code) {
-        if (StrUtils.isBlank(code)) {
-            return false;
-        }
-        return PATTERN_QUESTION_MULTIPLE_CHOICE.matcher(code).matches();
-    }
 }

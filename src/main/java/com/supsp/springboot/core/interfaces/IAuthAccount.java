@@ -11,6 +11,7 @@ import com.supsp.springboot.core.enums.AuthMemberType;
 import com.supsp.springboot.core.enums.OrgAuthority;
 
 import java.time.LocalDateTime;
+import java.util.Date;
 import java.util.List;
 
 public interface IAuthAccount extends IData {
@@ -59,9 +60,9 @@ public interface IAuthAccount extends IData {
 
     void setMemberType(AuthMemberType memberType);
 
-    LocalDateTime getExpiresAt();
+    Date getExpiresAt();
 
-    void setExpiresAt(LocalDateTime expiresAt);
+    void setExpiresAt(Date expiresAt);
 
     List<String> getPermissions();
 
@@ -91,14 +92,6 @@ public interface IAuthAccount extends IData {
 
     void setOrgId(Long orgId);
 
-    Long getOrgChildId();
-
-    void setOrgChildId(Long orgChildId);
-
-    Long getDepartmentId();
-
-    void setDepartmentId(Long departmentId);
-
     <T extends BaseAccountStore> T getStore();
 
     <T extends BaseAccountStore> void setStore(T store);
@@ -110,10 +103,6 @@ public interface IAuthAccount extends IData {
     Long getStoreId();
 
     void setStoreId(Long storeId);
-
-    OrgAuthority getAuthority();
-
-    void setAuthority(OrgAuthority authority);
 
     String getArea();
 
@@ -138,10 +127,6 @@ public interface IAuthAccount extends IData {
     Long getCommunity();
 
     void setCommunity(Long community);
-
-    OrgAuthority getOrgAuthority();
-
-    void setOrgAuthority(OrgAuthority orgAuthority);
 
     String getKindCodeFirst();
 

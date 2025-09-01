@@ -6,19 +6,20 @@ import com.supsp.springboot.core.consts.Constants;
 import com.supsp.springboot.core.consts.DataKeys;
 import com.supsp.springboot.core.enums.AccountType;
 import com.supsp.springboot.core.enums.AuthMemberType;
-import com.supsp.springboot.core.enums.OrgAuthority;
 import com.supsp.springboot.core.enums.SysModule;
 import com.supsp.springboot.core.interfaces.IAuthAccount;
 import com.supsp.springboot.core.threads.ConsumerData;
 import com.supsp.springboot.core.threads.GlobalData;
 import com.supsp.springboot.core.utils.CommonUtils;
 import com.supsp.springboot.core.utils.IpUtils;
+import com.supsp.springboot.core.utils.RequestUtils;
 import com.supsp.springboot.core.utils.StrUtils;
 import com.supsp.springboot.core.vo.IpRegionInfo;
 import com.supsp.springboot.core.vo.Operator;
 import com.supsp.springboot.core.vo.Scope;
-import com.supsp.springboot.core.vo.auth.*;
 import jakarta.annotation.Resource;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.ObjectUtils;
 import org.apache.commons.lang3.StringUtils;
@@ -32,6 +33,25 @@ public class AuthCommon {
 
     @Resource
     private CoreProperties coreProperties;
+
+    public static String headerUserType(HttpServletRequest request) {
+        if (request == null) {
+            request = RequestUtils.getRequest();
+        }
+        if (request == null) {
+            return null;
+        }
+        return request.getHeader(CoreProperties.tokenUserTypeHeaderName());
+    }
+
+    public static AuthMemberType headerAuthMemberType(HttpServletRequest request) {
+        String authMemberType = headerUserType(request);
+        if (StringUtils.isBlank(authMemberType)) {
+            return null;
+        }
+        return AuthMemberType.getByCode(authMemberType);
+    }
+
 
     // ======== token headers
     // admin

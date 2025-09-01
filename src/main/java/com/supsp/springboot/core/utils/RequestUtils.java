@@ -9,6 +9,8 @@ import org.apache.commons.lang3.ArrayUtils;
 import org.apache.commons.lang3.ObjectUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Component;
+import org.springframework.web.context.request.RequestContextHolder;
+import org.springframework.web.context.request.ServletRequestAttributes;
 
 import java.util.*;
 
@@ -16,13 +18,18 @@ import java.util.*;
 @Slf4j
 public class RequestUtils {
 
+    public static HttpServletRequest getRequest() {
+        ServletRequestAttributes attrs = (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();
+        return attrs != null ? attrs.getRequest() : null;
+    }
+
     public static String servletPath(HttpServletRequest request) {
         if (ObjectUtils.isEmpty(request)) {
             return null;
         }
         try {
             return request.getServletPath();
-        }catch (Exception e){
+        } catch (Exception e) {
             //
         }
         return null;
