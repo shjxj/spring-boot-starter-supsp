@@ -1,6 +1,5 @@
 package com.supsp.springboot.core.auth;
 
-import com.supsp.springboot.core.utils.JwtUtil;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
@@ -22,14 +21,9 @@ import java.util.Map;
 public class SecurityConfig {
 
     private final JwtAuthenticationFilter jwtAuthenticationFilter;
-    private final Map<String, IPassportService> passportServiceMap;
 
-
-
-    public SecurityConfig(JwtUtil jwtUtil,
-                          Map<String, IPassportService> passportServiceMap) {
-        this.jwtAuthenticationFilter = new JwtAuthenticationFilter(jwtUtil, passportServiceMap);
-        this.passportServiceMap = passportServiceMap;
+    public SecurityConfig(Map<String, IPassportService> passportServiceMap) {
+        this.jwtAuthenticationFilter = new JwtAuthenticationFilter(passportServiceMap);
     }
 
     @Bean

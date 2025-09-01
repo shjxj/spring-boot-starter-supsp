@@ -37,14 +37,14 @@ public class JwtUtil {
     @jakarta.annotation.PostConstruct
     public void init() {
         // 确保密钥至少有32个字符（256位）以满足JWT安全要求
-        String secret = coreProperties.getSecret();
+        String secret = CoreProperties.SECRET;
         if (StrUtils.isBlank(secret) || secret.length() < 32) {
             // 如果密钥太短，使用一个默认的安全密钥
             secret = "supsp_default_secret_key_for_jwt_authentication_20250901";
         }
         // 将密钥转换为Base64编码并创建HMAC-SHA256密钥
         this.key = Keys.hmacShaKeyFor(secret.getBytes());
-        this.expirationMs = ((long) coreProperties.getAuthExpires()) * 60 * 1000;
+        this.expirationMs = ((long) CoreProperties.AUTH_EXPIRES) * 60 * 1000;
     }
 
     public String tokenKeyName(

@@ -2,7 +2,6 @@ package com.supsp.springboot.core.auth;
 
 import com.supsp.springboot.core.enums.AuthMemberType;
 import com.supsp.springboot.core.helper.AuthCommon;
-import com.supsp.springboot.core.utils.JwtUtil;
 import com.supsp.springboot.core.vo.auth.AuthAccount;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
@@ -21,13 +20,9 @@ import java.util.Map;
 @Slf4j
 public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
-    private final JwtUtil jwtUtil;
-
     private final Map<String, IPassportService> passportServiceMap;
 
-    public JwtAuthenticationFilter(JwtUtil jwtUtil,
-                                   Map<String, IPassportService> passportServiceMap) {
-        this.jwtUtil = jwtUtil;
+    public JwtAuthenticationFilter(Map<String, IPassportService> passportServiceMap) {
         this.passportServiceMap = passportServiceMap;
     }
 
