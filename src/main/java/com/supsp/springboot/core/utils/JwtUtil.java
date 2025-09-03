@@ -9,6 +9,7 @@ import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jws;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.security.Keys;
+import jakarta.annotation.PostConstruct;
 import jakarta.annotation.Resource;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -34,7 +35,7 @@ public class JwtUtil {
     @Resource
     private CoreProperties coreProperties;
 
-    @jakarta.annotation.PostConstruct
+    @PostConstruct
     public void init() {
         // 确保密钥至少有32个字符（256位）以满足JWT安全要求
         String secret = CoreProperties.SECRET;

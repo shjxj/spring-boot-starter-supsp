@@ -69,14 +69,6 @@ public class SystemCommon {
     }
 
     // GlobalData
-//    public static String getRequestUid(HttpServletRequest request) {
-//        if (ObjectUtils.isNotEmpty(request)) {
-//            return request.getHeader(
-//                    CoreProperties.appUidHeaderName()
-//            );
-//        }
-//        return GlobalData.get(CoreProperties.APP_UID);
-//    }
     //
     public static void initTrace(
             HttpServletRequest request,
@@ -88,15 +80,6 @@ public class SystemCommon {
             ThreadData.remove();
             GlobalData.remove();
             traceId = CommonUtils.traceId();
-//            log.debug(
-//                    """
-//                            \n■■■■■ globalTraceIdDataSet
-//                            traceId: {}
-//                            threadId: {}
-//                            """,
-//                    traceId,
-//                    Thread.currentThread().threadId()
-//            );
             MDC.put(DataKeys.TRACE_ID, traceId);
             MDC.put(DataKeys.THREAD_ID, String.valueOf(Thread.currentThread().threadId()));
             response.addHeader(
@@ -313,11 +296,28 @@ public class SystemCommon {
             HttpServletRequest request,
             HttpServletResponse response
     ) {
-        globalAdminTokenDataSet(request, response);
-        globalTenantTokenDataSet(request, response);
-        globalMerchantTokenDataSet(request, response);
-        globalConsumerTokenDataSet(request, response);
-        globalApiTokenDataSet(request, response);
+        AuthMemberType memberType = AuthCommon.authMemberType(request);
+        if (memberType == null) {
+            return;
+        }
+        switch (memberType) {
+            case admin -> {
+                globalAdminTokenDataSet(request, response);
+            }
+            case tenant -> {
+                globalTenantTokenDataSet(request, response);
+            }
+            case merchant -> {
+                globalMerchantTokenDataSet(request, response);
+            }
+            case consumer -> {
+                globalConsumerTokenDataSet(request, response);
+            }
+            case api -> {
+                globalApiTokenDataSet(request, response);
+            }
+        }
+
     }
 
     // base

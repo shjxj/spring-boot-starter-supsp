@@ -31,7 +31,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
                                     HttpServletResponse response,
                                     FilterChain filterChain)
             throws ServletException, IOException {
-        AuthMemberType memberType = AuthCommon.headerAuthMemberType(request);
+        AuthMemberType memberType = AuthCommon.authMemberType(request);
         if (memberType == null) {
             filterChain.doFilter(request, response);
             return;

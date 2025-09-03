@@ -50,7 +50,7 @@ public class Operator implements IVo {
     private Long topStoreId;
 
     @Schema(title = "组织权限类型N(none)未设置 G(Global)全局 R(Region)地区")
-    private OrgAuthority orgAuthority;
+    private OrgAuthority authority;
 
     @Schema(title = "登录用户类型")
     protected AuthMemberType memberType;

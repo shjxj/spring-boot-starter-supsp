@@ -187,4 +187,8 @@ public interface IAuthAccount extends IData {
     AuthMemberType getOrgMemberType();
 
     void setOrgMemberType(AuthMemberType orgMemberType);
+
+    OrgAuthority getAuthority();
+
+    void setAuthority(OrgAuthority authority);
 }

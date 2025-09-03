@@ -139,7 +139,7 @@ public class OperatorInterceptor extends JsqlParserSupport implements InnerInter
     }
 
     public static Expression memberTypeExpression() {
-        AuthMemberType memberType = AuthCommon.getMemberType();
+        AuthMemberType memberType = AuthCommon.authMemberType();
         if (memberType == null) {
             memberType = AuthMemberType.none;
         }
@@ -147,7 +147,7 @@ public class OperatorInterceptor extends JsqlParserSupport implements InnerInter
     }
 
     public static Expression memberIdExpression() {
-        Long memberId = AuthCommon.getMemberId();
+        Long memberId = AuthCommon.authMemberId();
         if (memberId == null) {
             memberId = Constants.LONG_ZERO;
         }
@@ -155,7 +155,7 @@ public class OperatorInterceptor extends JsqlParserSupport implements InnerInter
     }
 
     public static Expression memberNameExpression() {
-        String memberName = AuthCommon.getMemberName();
+        String memberName = AuthCommon.authMemberName();
         if (memberName == null) {
             memberName = Constants.STRING_EMPTY;
         }
@@ -163,7 +163,7 @@ public class OperatorInterceptor extends JsqlParserSupport implements InnerInter
     }
 
     public static Expression memberAccountExpression() {
-        String memberAccount = AuthCommon.getMemberAccount();
+        String memberAccount = AuthCommon.authMemberAccount();
         if (memberAccount == null) {
             memberAccount = Constants.STRING_EMPTY;
         }
@@ -171,7 +171,7 @@ public class OperatorInterceptor extends JsqlParserSupport implements InnerInter
     }
 
     public static Expression requestIpExpression() {
-        String requestIp = AuthCommon.getRequestIp();
+        String requestIp = AuthCommon.requestIp();
         if (requestIp == null) {
             requestIp = Constants.STRING_EMPTY;
         }
@@ -179,7 +179,7 @@ public class OperatorInterceptor extends JsqlParserSupport implements InnerInter
     }
 
     public static Expression orgIdExpression() {
-        Long orgId = AuthCommon.getOrgId();
+        Long orgId = AuthCommon.authOrgId();
         if (orgId == null) {
             orgId = Constants.LONG_ZERO;
         }
@@ -187,7 +187,7 @@ public class OperatorInterceptor extends JsqlParserSupport implements InnerInter
     }
 
     public static Expression orgNameExpression() {
-        String orgName = AuthCommon.getOrgName();
+        String orgName = AuthCommon.authOrgName();
         if (orgName == null) {
             orgName = Constants.STRING_EMPTY;
         }
@@ -195,7 +195,7 @@ public class OperatorInterceptor extends JsqlParserSupport implements InnerInter
     }
 
     public static Expression storeIdExpression() {
-        Long storeId = AuthCommon.getStoreId();
+        Long storeId = AuthCommon.authStoreId();
         if (storeId == null) {
             storeId = Constants.LONG_ZERO;
         }
@@ -203,7 +203,7 @@ public class OperatorInterceptor extends JsqlParserSupport implements InnerInter
     }
 
     public static Expression storeNameExpression() {
-        String storeName = AuthCommon.getStoreName();
+        String storeName = AuthCommon.authStoreName();
         if (storeName == null) {
             storeName = Constants.STRING_EMPTY;
         }
@@ -394,7 +394,7 @@ public class OperatorInterceptor extends JsqlParserSupport implements InnerInter
 //                    AuthCommon.getOperatorId()
 //            );
 //        }
-        AuthMemberType memberType = AuthCommon.getMemberType();
+        AuthMemberType memberType = AuthCommon.authMemberType();
         return ObjectUtils.isNotEmpty(memberType) && !memberType.equals(AuthMemberType.none);
     }
 

@@ -260,6 +260,15 @@ public class CoreProperties implements InitializingBean {
     // id generator
     @Value("${supsp.id-generator:}")
     private String idGenerator;
+
+    //
+    @Value("${supsp.idempotent.name:idempotent}")
+    private String idempotentName;
+
+    @Value("${supsp.idempotent.expires-seconds:2}")
+    private Long idempotentExpires;
+
+    //
     public static String CONTEXT_PATH;
     public static String APP_NAME;
 
@@ -364,6 +373,10 @@ public class CoreProperties implements InitializingBean {
 
     // id generator
     public static String ID_GENERATOR;
+
+    //
+    public static String IDEMPOTENT_NAME;
+    public static Long IDEMPOTENT_EXPIRES;
 
     @Override
     public void afterPropertiesSet() throws Exception {
@@ -474,6 +487,10 @@ public class CoreProperties implements InitializingBean {
 
         // id generator
         ID_GENERATOR = idGenerator;
+
+        // doc
+        IDEMPOTENT_NAME = idempotentName;
+        IDEMPOTENT_EXPIRES = idempotentExpires;
     }
 
     //

@@ -104,28 +104,28 @@ public class BaseModelController<O extends BaseEntityModel<S, M, T>, S extends B
                 this.setOwnerId(Constants.LONG_ZERO);
             }
             case tenant -> {
-                this.setOwnerId(AuthCommon.getOrgId());
+                this.setOwnerId(AuthCommon.authOrgId());
             }
             case merchant -> {
-                this.setOwnerId(AuthCommon.getStoreId());
+                this.setOwnerId(AuthCommon.authStoreId());
             }
             case consumer -> {
-                this.setOwnerId(AuthCommon.getMemberId());
+                this.setOwnerId(AuthCommon.authMemberId());
             }
             case api -> {
                 switch (this.getOwnerType()) {
                     case Constants.OWNER_TYPE_ORG -> {
-                        this.setOwnerId(AuthCommon.getOrgId());
+                        this.setOwnerId(AuthCommon.authOrgId());
                     }
                     case Constants.OWNER_TYPE_STORE -> {
-                        this.setOwnerId(AuthCommon.getStoreId());
+                        this.setOwnerId(AuthCommon.authStoreId());
                     }
                     case Constants.OWNER_TYPE_SHOP -> {
-                        this.setOwnerId(AuthCommon.getShopId());
+                        this.setOwnerId(AuthCommon.authShopId());
                     }
                     default -> {
                         // case Constants.OWNER_TYPE_STORE, null,
-                        this.setOwnerId(AuthCommon.getStoreId());
+                        this.setOwnerId(AuthCommon.authStoreId());
                     }
                 }
             }

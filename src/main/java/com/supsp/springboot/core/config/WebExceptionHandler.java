@@ -23,6 +23,7 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.multipart.MaxUploadSizeExceededException;
 
 import java.sql.SQLException;
+import org.springframework.http.converter.HttpMessageNotReadableException;
 
 @RestControllerAdvice(annotations = RestController.class)
 @Slf4j
@@ -129,5 +130,18 @@ public class WebExceptionHandler {
             log.error("BindException exception: ", e);
         }
         return Result.fail(ExceptionCodes.SYSTEM_ERROR.getCode(), e.getMessage());
+    }
+    
+    /**
+     * 处理JSON解析错误，例如类型不匹配的情况
+     */
+    @ExceptionHandler({HttpMessageNotReadableException.class})
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    public Result<String> httpMessageNotReadableExceptionHandler(HttpMessageNotReadableException e) {
+        if (!CommonTools.isEnvProduct()) {
+            log.error("HttpMessageNotReadableException exception: ", e);
+        }
+        // 返回友好的错误信息，告知客户端请求参数格式不正确
+        return Result.fail(HttpStatus.BAD_REQUEST.value(), "请求参数格式不正确，请检查参数类型和格式");
     }
 }

@@ -128,6 +128,18 @@
       "sourceType": "com.supsp.springboot.core.config.CoreProperties"
     },
     {
+      "name": "supsp.idempotent.name",
+      "type": "java.lang.String",
+      "description": "idempotent name",
+      "sourceType": "com.supsp.springboot.core.config.CoreProperties"
+    },
+    {
+      "name": "supsp.idempotent.expires-seconds",
+      "type": "java.lang.Long",
+      "description": "idempotent expires seconds",
+      "sourceType": "com.supsp.springboot.core.config.CoreProperties"
+    },
+    {
       "name": "supsp.async.threadPool.corePoolSize",
       "type": "java.lang.Integer",
       "description": "Core pool size for async thread pool",

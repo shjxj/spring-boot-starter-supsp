@@ -699,28 +699,28 @@ public abstract class BaseEntityModel<S extends BaseEntityServiceImpl<M, T>, M e
                 this.setOwnerId(Constants.LONG_ZERO);
             }
             case tenant -> {
-                this.setOwnerId(AuthCommon.getOrgId());
+                this.setOwnerId(AuthCommon.authOrgId());
             }
             case merchant -> {
-                this.setOwnerId(AuthCommon.getStoreId());
+                this.setOwnerId(AuthCommon.authStoreId());
             }
             case consumer -> {
-                this.setOwnerId(AuthCommon.getMemberId());
+                this.setOwnerId(AuthCommon.authMemberId());
             }
             case api -> {
                 switch (this.getOwnerType()) {
                     case Constants.OWNER_TYPE_ORG -> {
-                        this.setOwnerId(AuthCommon.getOrgId());
+                        this.setOwnerId(AuthCommon.authOrgId());
                     }
                     case Constants.OWNER_TYPE_STORE -> {
-                        this.setOwnerId(AuthCommon.getStoreId());
+                        this.setOwnerId(AuthCommon.authStoreId());
                     }
                     case Constants.OWNER_TYPE_SHOP -> {
-                        this.setOwnerId(AuthCommon.getShopId());
+                        this.setOwnerId(AuthCommon.authShopId());
                     }
                     default -> {
                         // case Constants.OWNER_TYPE_STORE, null,
-                        this.setOwnerId(AuthCommon.getStoreId());
+                        this.setOwnerId(AuthCommon.authStoreId());
                     }
                 }
             }
@@ -1511,7 +1511,7 @@ public abstract class BaseEntityModel<S extends BaseEntityServiceImpl<M, T>, M e
         ) {
             return;
         }
-        Scope scope = AuthCommon.getAuthScope();
+        Scope scope = AuthCommon.authScope();
         if (ObjectUtils.isEmpty(scope)) {
             scopNoneQueryWrapper(wrapper, scope);
             return;
@@ -1548,7 +1548,7 @@ public abstract class BaseEntityModel<S extends BaseEntityServiceImpl<M, T>, M e
         ) {
             return;
         }
-        Scope scope = AuthCommon.getAuthScope();
+        Scope scope = AuthCommon.authScope();
         if (ObjectUtils.isEmpty(scope)) {
             scopeNoneQueryWrapper(wrapper, alias, scope);
             return;
