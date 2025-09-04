@@ -10,6 +10,9 @@ import java.lang.annotation.Target;
 @Target({ElementType.METHOD, ElementType.TYPE})
 @Retention(RetentionPolicy.RUNTIME)
 public @interface RequiresRoles {
-    String[] value();               // 角色标识数组
-    Logical logical() default Logical.AND; // 逻辑关系
+    // 角色标识数组
+    String[] value();
+
+    // 逻辑关系
+    Logical logical() default Logical.OR;
 }

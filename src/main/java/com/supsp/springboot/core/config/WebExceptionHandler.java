@@ -1,10 +1,7 @@
 package com.supsp.springboot.core.config;
 
 import com.supsp.springboot.core.base.Result;
-import com.supsp.springboot.core.exceptions.ActionException;
-import com.supsp.springboot.core.exceptions.BaseException;
-import com.supsp.springboot.core.exceptions.ExceptionCodes;
-import com.supsp.springboot.core.exceptions.ModelException;
+import com.supsp.springboot.core.exceptions.*;
 import com.supsp.springboot.core.utils.CommonTools;
 import io.swagger.v3.oas.annotations.Hidden;
 import jakarta.validation.ConstraintViolationException;
@@ -13,6 +10,8 @@ import org.apache.tomcat.util.http.fileupload.impl.FileSizeLimitExceededExceptio
 import org.apache.tomcat.util.http.fileupload.impl.SizeLimitExceededException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.converter.HttpMessageNotReadableException;
+import org.springframework.security.access.AccessDeniedException;
+import org.springframework.security.authentication.AuthenticationCredentialsNotFoundException;
 import org.springframework.validation.BindException;
 import org.springframework.validation.FieldError;
 import org.springframework.web.HttpRequestMethodNotSupportedException;
@@ -39,13 +38,6 @@ public class WebExceptionHandler {
         return Result.fail(HttpStatus.INTERNAL_SERVER_ERROR.value(), "系统错误");
     }
 
-    @ExceptionHandler({RuntimeException.class})
-    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
-    public Result<String> runtimeExceptionHandler(RuntimeException e) {
-        log.error("RuntimeException exception", e);
-        return Result.fail(HttpStatus.INTERNAL_SERVER_ERROR.value(), "请稍后再试");
-    }
-
     @ExceptionHandler({BaseException.class})
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     public Result<String> badRequestExceptionHandler(BaseException e) {
@@ -62,6 +54,16 @@ public class WebExceptionHandler {
             log.error("ActionException exception: ", e);
         }
         return Result.fail(e.getCode(), e.getMessage());
+    }
+
+
+    @ExceptionHandler({AuthException.class})
+    @ResponseStatus(HttpStatus.UNAUTHORIZED)
+    public Result<String> httpAuthExceptionHandler(AuthException e) {
+        if (!CommonTools.isEnvProduct()) {
+            log.error("AuthException exception: ", e);
+        }
+        return Result.fail(HttpStatus.UNAUTHORIZED.value(), e.getMessage());
     }
 
     @ExceptionHandler({MethodArgumentNotValidException.class})
@@ -107,7 +109,7 @@ public class WebExceptionHandler {
 
     @ExceptionHandler({ModelException.class})
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
-    public Result<String> ServerErrorExceptionHandler(BaseException e) {
+    public Result<String> serverErrorExceptionHandler(BaseException e) {
         if (!CommonTools.isEnvProduct()) {
             log.error("ServerErrorExceptionHandler exception: ", e);
         }
@@ -116,7 +118,7 @@ public class WebExceptionHandler {
 
     @ExceptionHandler({SQLException.class})
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
-    public Result<String> SQLExceptionHandler(SQLException e) {
+    public Result<String> sqlExceptionHandler(SQLException e) {
         if (!CommonTools.isEnvProduct()) {
             log.error("SQLException exception: ", e);
         }
@@ -131,7 +133,7 @@ public class WebExceptionHandler {
         }
         return Result.fail(ExceptionCodes.SYSTEM_ERROR.getCode(), e.getMessage());
     }
-    
+
     /**
      * 处理JSON解析错误，例如类型不匹配的情况
      */
@@ -144,4 +146,32 @@ public class WebExceptionHandler {
         // 返回友好的错误信息，告知客户端请求参数格式不正确
         return Result.fail(HttpStatus.BAD_REQUEST.value(), "请求参数格式不正确，请检查参数类型和格式");
     }
+
+    //
+    @ExceptionHandler({AuthenticationCredentialsNotFoundException.class})
+    @ResponseStatus(HttpStatus.UNAUTHORIZED)
+    public Result<String> httpAuthenticationCredentialsNotFoundExceptionHandler(AuthenticationCredentialsNotFoundException e) {
+        if (!CommonTools.isEnvProduct()) {
+            log.error("AuthenticationCredentialsNotFoundException exception: ", e);
+        }
+        return Result.fail(HttpStatus.UNAUTHORIZED.value(), e.getMessage());
+    }
+
+    @ExceptionHandler({AccessDeniedException.class})
+    @ResponseStatus(HttpStatus.FORBIDDEN)
+    public Result<String> httpAccessDeniedExceptionHandler(AccessDeniedException e) {
+        if (!CommonTools.isEnvProduct()) {
+            log.error("AccessDeniedException exception: ", e);
+        }
+        return Result.fail(HttpStatus.FORBIDDEN.value(), e.getMessage());
+    }
+
+    //
+    @ExceptionHandler({RuntimeException.class})
+    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
+    public Result<String> runtimeExceptionHandler(RuntimeException e) {
+        log.error("RuntimeException exception", e);
+        return Result.fail(HttpStatus.INTERNAL_SERVER_ERROR.value(), "请稍后再试");
+    }
+
 }

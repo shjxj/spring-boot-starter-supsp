@@ -10,6 +10,9 @@ import java.lang.annotation.Target;
 @Target({ElementType.METHOD, ElementType.TYPE})
 @Retention(RetentionPolicy.RUNTIME)
 public @interface RequiresPermissions {
-    String[] value();               // 权限标识数组
-    Logical logical() default Logical.AND; // 逻辑关系
+    // 权限标识数组
+    String[] value();
+
+    // 逻辑关系
+    Logical logical() default Logical.AND;
 }

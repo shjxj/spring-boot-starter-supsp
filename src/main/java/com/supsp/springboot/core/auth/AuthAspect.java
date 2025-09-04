@@ -3,12 +3,14 @@ package com.supsp.springboot.core.auth;
 import com.supsp.springboot.core.auth.annotations.RequiresPermissions;
 import com.supsp.springboot.core.auth.annotations.RequiresRoles;
 import com.supsp.springboot.core.enums.Logical;
+import com.supsp.springboot.core.exceptions.AuthException;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.reflect.MethodSignature;
 import org.springframework.aop.support.AopUtils;
 import org.springframework.security.access.AccessDeniedException;
+import org.springframework.security.authentication.AuthenticationCredentialsNotFoundException;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -29,8 +31,8 @@ public class AuthAspect {
         Method method = ((MethodSignature) joinPoint.getSignature()).getMethod();
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 
-        if (auth == null || !auth.isAuthenticated()) {
-            throw new AccessDeniedException("未认证用户无法访问");
+        if (auth != null || !auth.isAuthenticated()) {
+            throw new AuthException("请登录后访问");
         }
 
         Set<String> authorities = auth.getAuthorities().stream()
@@ -46,7 +48,7 @@ public class AuthAspect {
         RequiresRoles crr = targetClass.getAnnotation(RequiresRoles.class);
         if (crr != null) {
             if (!check(crr.value(), crr.logical(), roles)) {
-                throw new AccessDeniedException("角色不足");
+                throw new AccessDeniedException("您无此权限");
             }
         }
 
@@ -54,7 +56,7 @@ public class AuthAspect {
         RequiresPermissions crp = targetClass.getAnnotation(RequiresPermissions.class);
         if (crp != null) {
             if (!check(crp.value(), crp.logical(), authorities)) {
-                throw new AccessDeniedException("权限不足");
+                throw new AccessDeniedException("您的权限不足");
             }
         }
 
@@ -62,7 +64,7 @@ public class AuthAspect {
         RequiresRoles rr = method.getAnnotation(RequiresRoles.class);
         if (rr != null) {
             if (!check(rr.value(), rr.logical(), roles)) {
-                throw new AccessDeniedException("角色不足");
+                throw new AccessDeniedException("您无此权限");
             }
         }
 
@@ -70,7 +72,7 @@ public class AuthAspect {
         RequiresPermissions rp = method.getAnnotation(RequiresPermissions.class);
         if (rp != null) {
             if (!check(rp.value(), rp.logical(), authorities)) {
-                throw new AccessDeniedException("权限不足");
+                throw new AccessDeniedException("您的权限不足");
             }
         }
 

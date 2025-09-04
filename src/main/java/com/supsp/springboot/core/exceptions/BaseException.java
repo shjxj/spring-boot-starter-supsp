@@ -9,7 +9,7 @@ import java.io.Serial;
 @Setter
 @EqualsAndHashCode(callSuper = true)
 @Data
-public class BaseException extends Exception implements com.supsp.springboot.core.interfaces.IException {
+public class BaseException extends RuntimeException implements com.supsp.springboot.core.interfaces.IException {
     @Serial
     private static final long serialVersionUID = 885015426250507125L;
 

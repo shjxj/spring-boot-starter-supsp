@@ -381,12 +381,6 @@
             <version>1.9.24</version>
             <scope>compile</scope>
         </dependency>
-        
-        <!-- Spring Security 依赖 -->
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-security</artifactId>
-        </dependency>
 
         <!-- `https://mvnrepository.com/artifact/org.apache.velocity/velocity-engine-core`  -->
         <dependency>
