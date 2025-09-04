@@ -29,9 +29,9 @@ public class Constants {
     public static final String PERMISSION_ROLE_POST_TYPE_PREFIX = "PT::";
 
     public static final String PERMISSION_ROLE_PREFIX = "ROLE_";
-    public static final String PERMISSION_ROLE_TYPE_PREFIX = "ROLE_TYPE_";
-    public static final String PERMISSION_ROLE_CODE_PREFIX = "ROLE_CODE_";
-    public static final String PERMISSION_ROLE_PERSON_PREFIX = "ROLE_PERSON_";
+    public static final String PERMISSION_ROLE_TYPE_PREFIX = "RT::";
+    public static final String PERMISSION_ROLE_CODE_PREFIX = "RC::";
+    public static final String PERMISSION_ROLE_PERSON_PREFIX = "RP::";
 
     // public static final String PERMISSION_ROLE_MEMBER = "member";
     public static final String PERMISSION_ROLE_ADMIN = "admin";
