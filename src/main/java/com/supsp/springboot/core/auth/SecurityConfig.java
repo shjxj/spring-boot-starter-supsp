@@ -1,10 +1,12 @@
 package com.supsp.springboot.core.auth;
 
+import com.supsp.springboot.core.consts.Constants;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
+import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
@@ -18,6 +20,14 @@ import java.util.Map;
 
 @Configuration
 @EnableWebSecurity
+@EnableMethodSecurity(
+        // 启用 @PreAuthorize @PostAuthorize @PreFilter @PostFilter
+        prePostEnabled = true,
+        // 启用 @Secured
+        securedEnabled = true,
+        // 是否启用 @DenyAll @RolesAllowed @PermitAll
+        jsr250Enabled = false
+)
 public class SecurityConfig {
 
     private final JwtAuthenticationFilter jwtAuthenticationFilter;
@@ -30,6 +40,10 @@ public class SecurityConfig {
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
                 .csrf(AbstractHttpConfigurer::disable)
+                .exceptionHandling(exception -> exception
+                        .authenticationEntryPoint(new SysAuthenticationEntryPoint())
+                        .accessDeniedHandler(new SysAccessDeniedHandler())
+                )
                 .sessionManagement(session ->
                         session.sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 )
@@ -86,7 +100,13 @@ public class SecurityConfig {
                                 "/consumer/file/**",
                                 "/api/file/**"
                         ).permitAll()
+                        // HttpMethod.OPTIONS 放行
                         .requestMatchers(HttpMethod.OPTIONS).permitAll()
+                        .requestMatchers("/admin/**").hasRole(Constants.PERMISSION_ROLE_ADMIN)
+                        .requestMatchers("/tenant/**").hasRole(Constants.PERMISSION_ROLE_TENANT)
+                        .requestMatchers("/merchant/**").hasRole(Constants.PERMISSION_ROLE_MERCHANT)
+                        .requestMatchers("/consumer/**").hasRole(Constants.PERMISSION_ROLE_CONSUMER)
+                        .requestMatchers("/api/**").hasRole(Constants.PERMISSION_ROLE_API)
                         .anyRequest().authenticated()
                 );
 

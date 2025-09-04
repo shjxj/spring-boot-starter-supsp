@@ -72,6 +72,11 @@
             <scope>test</scope>
         </dependency>
 
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-aop</artifactId>
+        </dependency>
+
         <!-- logging -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -374,7 +379,13 @@
             <groupId>org.aspectj</groupId>
             <artifactId>aspectjweaver</artifactId>
             <version>1.9.24</version>
-            <scope>runtime</scope>
+            <scope>compile</scope>
+        </dependency>
+        
+        <!-- Spring Security 依赖 -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-security</artifactId>
         </dependency>
 
         <!-- `https://mvnrepository.com/artifact/org.apache.velocity/velocity-engine-core`  -->
@@ -464,6 +475,10 @@
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-javadoc-plugin</artifactId>
                 <version>3.11.3</version>
+                <configuration>
+                    <!-- 禁用Javadoc的HTML语法检查，允许未转义的HTML代码 -->
+                    <doclint>none</doclint>
+                </configuration>
                 <executions>
                     <execution>
                         <id>attach-javadocs</id>

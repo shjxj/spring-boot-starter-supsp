@@ -1,5 +1,6 @@
 package com.supsp.springboot.core.auth;
 
+import com.supsp.springboot.core.consts.Constants;
 import com.supsp.springboot.core.enums.AuthMemberType;
 import com.supsp.springboot.core.helper.AuthCommon;
 import com.supsp.springboot.core.vo.auth.AuthAccount;
@@ -9,11 +10,15 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
 import org.springframework.web.filter.OncePerRequestFilter;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
@@ -45,12 +50,17 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
         IPassportService passportService = passportServiceMap.get(serviceName);
         AuthAccount authAccount = null;
         try {
+            List<GrantedAuthority> authorities = Arrays.asList(
+                    new SimpleGrantedAuthority(Constants.ROLE_USER),
+                    new SimpleGrantedAuthority(Constants.ROLE_ADMIN)
+            );
             authAccount = passportService.auth(request);
             UsernamePasswordAuthenticationToken authentication =
                     new UsernamePasswordAuthenticationToken(
                             authAccount,
                             null,
-                            List.of(() -> "ROLE_USER"));
+                            authorities
+                    );
 
             authentication.setDetails(
                     new WebAuthenticationDetailsSource().buildDetails(request));
