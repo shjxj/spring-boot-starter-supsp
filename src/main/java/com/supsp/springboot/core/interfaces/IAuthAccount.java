@@ -1,7 +1,6 @@
 package com.supsp.springboot.core.interfaces;
 
 
-
 import com.supsp.springboot.core.base.BaseAccountOrg;
 import com.supsp.springboot.core.base.BaseAccountPost;
 import com.supsp.springboot.core.base.BaseAccountShop;
@@ -10,7 +9,6 @@ import com.supsp.springboot.core.enums.AccountType;
 import com.supsp.springboot.core.enums.AuthMemberType;
 import com.supsp.springboot.core.enums.OrgAuthority;
 
-import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.List;
 

@@ -1,25 +1,15 @@
 package com.supsp.springboot.core.config.intercepter;
 
-import com.supsp.springboot.core.config.CoreProperties;
-import com.supsp.springboot.core.consts.DataKeys;
-import com.supsp.springboot.core.helper.SystemCommon;
 import com.supsp.springboot.core.threads.CacheTables;
 import com.supsp.springboot.core.threads.GlobalData;
 import com.supsp.springboot.core.threads.SensitiveContext;
 import com.supsp.springboot.core.threads.ThreadData;
-import com.supsp.springboot.core.utils.CommonTools;
-import com.supsp.springboot.core.utils.IpUtils;
-import com.supsp.springboot.core.utils.RequestUtils;
-import com.supsp.springboot.core.vo.IpRegionInfo;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
-
-import java.util.List;
-import java.util.Map;
 
 @Component
 @Slf4j

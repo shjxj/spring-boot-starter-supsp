@@ -5,7 +5,6 @@ import com.supsp.springboot.core.config.CoreProperties;
 import com.supsp.springboot.core.consts.DataKeys;
 import com.supsp.springboot.core.helper.SystemCommon;
 import com.supsp.springboot.core.threads.GlobalData;
-import com.supsp.springboot.core.utils.JsonUtil;
 import com.supsp.springboot.core.utils.RequestUtils;
 import jakarta.annotation.Resource;
 import jakarta.servlet.*;
